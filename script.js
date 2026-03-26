@@ -729,4 +729,120 @@ document.addEventListener('DOMContentLoaded', () => {
 
     searchResults.innerHTML = html;
   }
+
+  // ==========================================
+  // MOBILE APP-LIKE UI (Phase 11)
+  // ==========================================
+  const mobileNavHTML = `
+    <nav class="mobile-nav" id="mobileNav">
+      <a href="index.html" class="mobile-nav__btn ${window.location.pathname.includes('index.html') || window.location.pathname === '/' ? 'active' : ''}">
+        <i class="fas fa-home"></i>
+        <span>Accueil</span>
+      </a>
+      <button class="mobile-nav__btn" id="mobileSearchBtn">
+        <i class="fas fa-search"></i>
+        <span>Recherche</span>
+      </button>
+      <button class="mobile-nav__btn" id="mobileCartBtn">
+        <i class="fas fa-shopping-bag"></i>
+        <span>Panier</span>
+        <span class="mobile-nav__badge" id="mobileCartBadge" style="display:none;">0</span>
+      </button>
+      <button class="mobile-nav__btn" id="mobileAccountBtn">
+        <i class="fas fa-user"></i>
+        <span>Compte</span>
+      </button>
+    </nav>
+  `;
+  document.body.insertAdjacentHTML('beforeend', mobileNavHTML);
+
+  const mobileSearchBtn = document.getElementById('mobileSearchBtn');
+  const mobileCartBtn = document.getElementById('mobileCartBtn');
+  const mobileAccountBtn = document.getElementById('mobileAccountBtn');
+
+  if (mobileSearchBtn) mobileSearchBtn.addEventListener('click', window.openSearch);
+  if (mobileCartBtn) mobileCartBtn.addEventListener('click', window.openCart);
+  if (mobileAccountBtn) {
+    mobileAccountBtn.addEventListener('click', () => {
+      const authOverlay = document.getElementById('authModal');
+      const accountDropdown = document.getElementById('accountDropdown');
+      
+      if (currentUser) {
+        if (accountDropdown) accountDropdown.style.display = accountDropdown.style.display === 'block' ? 'none' : 'block';
+      } else {
+        if (authOverlay) authOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  }
+
+  // Hook into updateCartBadge to update mobile badge
+  const originalUpdateBadge = window.updateCartBadge;
+  window.updateCartBadge = function() {
+    originalUpdateBadge();
+    const mbBadge = document.getElementById('mobileCartBadge');
+    if (mbBadge) {
+      const totalQty = window.cart.reduce((sum, item) => sum + item.qty, 0);
+      mbBadge.textContent = totalQty;
+      mbBadge.style.display = totalQty > 0 ? 'flex' : 'none';
+    }
+  };
+  window.updateCartBadge(); // init
+
+  // Add Haptic feedback to addToCart
+  const originalAddToCart = window.addToCart;
+  window.addToCart = function(productId) {
+    if (navigator.vibrate) navigator.vibrate(50);
+    originalAddToCart(productId);
+  };
+
+  // Touch Swipe Gestures for Cart
+  const cartDrawerEl = document.getElementById('cartDrawer');
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  if (cartDrawerEl) {
+    cartDrawerEl.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+
+    cartDrawerEl.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, {passive: true});
+  }
+
+  function handleSwipe() {
+    // Swipe right to close cart (cart comes from right)
+    if (touchEndX - touchStartX > 50) {
+      window.closeCart();
+    }
+  }
+
+  // Swipe Gestures for Nav Menu (comes from left, swipe left to close)
+  const navMenuEl = document.getElementById('navMenu');
+  let navTouchStartX = 0;
+  let navTouchEndX = 0;
+
+  if (navMenuEl) {
+    navMenuEl.addEventListener('touchstart', e => {
+      navTouchStartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+
+    navMenuEl.addEventListener('touchend', e => {
+      navTouchEndX = e.changedTouches[0].screenX;
+      handleNavSwipe();
+    }, {passive: true});
+  }
+
+  function handleNavSwipe() {
+    if (navTouchStartX - navTouchEndX > 50) {
+      const navToggle = document.getElementById('navToggle');
+      const navOverlay = document.getElementById('navOverlay');
+      if (navToggle) navToggle.classList.remove('active');
+      navMenuEl.classList.remove('open');
+      if (navOverlay) navOverlay.classList.remove('visible');
+      document.body.style.overflow = '';
+    }
+  }
 });
