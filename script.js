@@ -225,6 +225,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (product) {
         card.dataset.id = product.id;
         
+        // Make the whole card clickable
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', () => {
+          window.location.href = `product.html?id=${product.id}`;
+        });
+        
         // Inject Add to Cart Button
         const imgWrapper = card.querySelector('.product-card__image-wrapper');
         const addBtn = document.createElement('button');
@@ -238,12 +244,95 @@ document.addEventListener('DOMContentLoaded', () => {
         imgWrapper.appendChild(addBtn);
       }
     });
+
+    // ==========================================
+    // PRODUCT DETAIL PAGE LOGIC
+    // ==========================================
+    const productDetailContainer = document.getElementById('productDetailContainer');
+    if (productDetailContainer) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = urlParams.get('id');
+      const product = products.find(p => p.id === productId);
+
+      if (product) {
+        const layout = document.getElementById('productLayout');
+        if (layout) layout.style.display = 'grid';
+        
+        const pdImage = document.getElementById('pdImage');
+        if (pdImage) {
+          pdImage.src = product.image;
+          pdImage.alt = product.name;
+        }
+        
+        const pdName = document.getElementById('pdName');
+        if (pdName) pdName.textContent = product.name;
+        
+        const pdPrice = document.getElementById('pdPrice');
+        if (pdPrice) pdPrice.textContent = product.price + ' DA';
+        
+        const pdDesc = document.getElementById('pdDesc');
+        if (pdDesc) pdDesc.textContent = product.desc || "Découvrez la qualité Ikherbane avec nos chaussettes fabriquées en Algérie. Confortables, durables et élégantes, elles sont conçues pour un usage quotidien tout en préservant le bien-être de vos pieds.";
+        
+        const pdCatLink = document.getElementById('pdCatLink');
+        if (pdCatLink) {
+          const catLabel = product.category.charAt(0).toUpperCase() + product.category.slice(1);
+          pdCatLink.textContent = catLabel;
+          pdCatLink.href = `catalog.html?cat=${product.category}`;
+        }
+        
+        const pdCrumbName = document.getElementById('pdCrumbName');
+        if (pdCrumbName) pdCrumbName.textContent = product.name;
+
+        document.title = `${product.name} — Ikherbane Chaussettes`;
+
+        let detailQty = 1;
+        const pdQtyMinus = document.getElementById('pdQtyMinus');
+        const pdQtyPlus = document.getElementById('pdQtyPlus');
+        const pdQtyVal = document.getElementById('pdQtyVal');
+        const pdAddBtn = document.getElementById('pdAddBtn');
+
+        if (pdQtyMinus && pdQtyVal) {
+          pdQtyMinus.addEventListener('click', () => {
+            if (detailQty > 1) {
+              detailQty--;
+              pdQtyVal.textContent = detailQty;
+            }
+          });
+        }
+
+        if (pdQtyPlus && pdQtyVal) {
+          pdQtyPlus.addEventListener('click', () => {
+            detailQty++;
+            pdQtyVal.textContent = detailQty;
+          });
+        }
+
+        if (pdAddBtn) {
+          pdAddBtn.addEventListener('click', () => {
+            const existingItem = window.cart.find(item => item.id === product.id);
+            if (existingItem) {
+              existingItem.qty += detailQty;
+            } else {
+              window.cart.push({ ...product, qty: detailQty });
+            }
+            window.saveCart();
+            window.updateCartBadge();
+            window.showToast(`${detailQty}x ${product.name} ajouté au panier`);
+            window.openCart();
+          });
+        }
+
+      } else {
+        const productError = document.getElementById('productError');
+        if (productError) productError.style.display = 'block';
+      }
+    }
   }
 
   // ==========================================
   // CART SYSTEM
   // ==========================================
-  let cart = JSON.parse(localStorage.getItem('ikherbane_cart')) || [];
+  window.cart = JSON.parse(localStorage.getItem('ikherbane_cart')) || [];
   
   const cartBtn = document.getElementById('cartBtn');
   const cartDrawer = document.getElementById('cartDrawer');
@@ -286,55 +375,55 @@ document.addEventListener('DOMContentLoaded', () => {
     const product = products.find(p => p.id === productId);
     if (!product) return;
     
-    const existingItem = cart.find(item => item.id === productId);
+    const existingItem = window.cart.find(item => item.id === productId);
     if (existingItem) {
       existingItem.qty += 1;
     } else {
-      cart.push({ ...product, qty: 1 });
+      window.cart.push({ ...product, qty: 1 });
     }
     
-    saveCart();
-    updateCartBadge();
+    window.saveCart();
+    window.updateCartBadge();
     showToast(`${product.name} ajouté au panier`);
-    openCart();
+    window.openCart();
   };
 
   window.updateQty = function(productId, change) {
-    const item = cart.find(i => i.id === productId);
+    const item = window.cart.find(i => i.id === productId);
     if (item) {
       item.qty += change;
       if (item.qty <= 0) {
-        cart = cart.filter(i => i.id !== productId);
+        window.cart = window.cart.filter(i => i.id !== productId);
       }
-      saveCart();
+      window.saveCart();
       renderCart();
-      updateCartBadge();
+      window.updateCartBadge();
     }
   };
 
   window.removeFromCart = function(productId) {
-    cart = cart.filter(i => i.id !== productId);
-    saveCart();
+    window.cart = window.cart.filter(i => i.id !== productId);
+    window.saveCart();
     renderCart();
-    updateCartBadge();
+    window.updateCartBadge();
     showToast('Produit retiré du panier', 'error');
   };
 
-  function saveCart() {
-    localStorage.setItem('ikherbane_cart', JSON.stringify(cart));
-  }
+  window.saveCart = function() {
+    localStorage.setItem('ikherbane_cart', JSON.stringify(window.cart));
+  };
 
-  function updateCartBadge() {
+  window.updateCartBadge = function() {
     if (!cartBadge) return;
-    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+    const totalQty = window.cart.reduce((sum, item) => sum + item.qty, 0);
     cartBadge.textContent = totalQty;
     cartBadge.style.display = totalQty > 0 ? 'flex' : 'none';
-  }
+  };
 
   function renderCart() {
     if (!cartItemsContainer || !cartFooter) return;
     
-    if (cart.length === 0) {
+    if (window.cart.length === 0) {
       cartItemsContainer.innerHTML = '<div class="cart__empty">Votre panier est vide.</div>';
       cartFooter.style.display = 'none';
       return;
@@ -348,7 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let html = '';
     let total = 0;
     
-    cart.forEach(item => {
+    window.cart.forEach(item => {
       const itemTotal = item.price * item.qty;
       total += itemTotal;
       html += `
@@ -408,7 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
       orderText += `----------------------%0A`;
       
       let total = 0;
-      cart.forEach(item => {
+      window.cart.forEach(item => {
         orderText += `- ${item.qty}x ${item.name} (${item.price * item.qty} DA)%0A`;
         total += (item.price * item.qty);
       });
@@ -420,11 +509,11 @@ document.addEventListener('DOMContentLoaded', () => {
       window.open(`https://wa.me/${adminPhone}?text=${orderText}`, '_blank');
       
       // Clear cart
-      cart = [];
-      saveCart();
+      window.cart = [];
+      window.saveCart();
       renderCart();
-      updateCartBadge();
-      closeCart();
+      window.updateCartBadge();
+      window.closeCart();
       showToast('Redirection vers WhatsApp...', 'success');
     });
   }
