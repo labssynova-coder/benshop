@@ -17,14 +17,17 @@
 | R9 | Catalog page with category filtering (Homme/Femme/Enfants/Autres) | High | [ ] |
 | R10 | Mobile responsive design (all breakpoints) | Critical | [ ] |
 
+| R11 | Search overlay with fuzzy product matching | High | [ ] |
+| R12 | Cart with add-to-cart, quantity controls, badge counter | Critical | [ ] |
+| R16 | Account/login system with localStorage persistence | High | [ ] |
+| R17 | Order submission (WhatsApp/email to admin) | Critical | [ ] |
+
 ### Nice-to-Have
 
 | ID | Requirement | Priority | Status |
 |----|-------------|----------|--------|
-| R11 | Search functionality | Medium | [ ] |
-| R12 | Cart icon with badge count | Low | [ ] |
 | R13 | Product detail page with image gallery | Medium | [ ] |
-| R14 | Smooth page transitions and micro-animations | Medium | [ ] |
+| R14 | Smooth page transitions and micro-animations | Medium | [x] |
 | R15 | Multilingual support (French/Arabic/English) | Low | [ ] |
 
 ### Out of Scope

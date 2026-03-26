@@ -57,5 +57,39 @@
 - Performance optimization
 - Final visual QA against Carbonix reference
 
+### Phase 7: Search Functionality
+**Goal:** Add product search with overlay UI
+**Delivers:** R11
+
+- Build search overlay modal triggered by navbar search icon
+- Implement client-side fuzzy search across product data
+- Display search results with product cards
+- Handle no results state
+- Keyboard shortcut (Ctrl+K / Cmd+K)
+- Close on Escape / click outside
+
+### Phase 8: Account & Login System
+**Goal:** Add user authentication UI with localStorage persistence
+**Delivers:** R16 (new)
+
+- Build login/register modal with form validation
+- Create account dropdown menu (orders, profile, logout)
+- Persist auth state in localStorage
+- Show logged-in user indicator in navbar
+- Account page with order history view
+
+### Phase 9: Cart & Order System
+**Goal:** Add-to-cart functionality with order submission
+**Delivers:** R12, R17 (new)
+
+- Add "Ajouter au panier" buttons on product cards
+- Build slide-out cart drawer with product list
+- Cart item quantity controls (+/-)
+- Cart total calculation
+- Order checkout form (name, phone, address, wilaya)
+- Order submission via WhatsApp/email to admin
+- Cart badge counter in navbar (live update)
+- Cart persistence in localStorage
+
 ---
-*Last updated: 2026-03-26*
+*Last updated: 2026-03-26 — phases 7-9 added*
