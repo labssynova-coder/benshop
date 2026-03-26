@@ -91,5 +91,14 @@
 - Cart badge counter in navbar (live update)
 - Cart persistence in localStorage
 
+### Phase 10: Product Detail Page
+**Goal:** Build individual product view with routing
+**Delivers:** R13
+
+- Create `product.html` layout
+- Update `script.js` to render product details via URL `?id=` parameter
+- Link `.product-card` clicks to `product.html`
+- Add product image viewer, description, and large "Add to Cart" button
+
 ---
-*Last updated: 2026-03-26 — phases 7-9 added*
+*Last updated: 2026-03-26 — Phase 10 added*

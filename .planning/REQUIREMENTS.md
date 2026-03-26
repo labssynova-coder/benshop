@@ -19,6 +19,7 @@
 
 | R11 | Search overlay with fuzzy product matching | High | [ ] |
 | R12 | Cart with add-to-cart, quantity controls, badge counter | Critical | [ ] |
+| R13 | Product detail page with image gallery and description | High | [ ] |
 | R16 | Account/login system with localStorage persistence | High | [ ] |
 | R17 | Order submission (WhatsApp/email to admin) | Critical | [ ] |
 
@@ -26,7 +27,6 @@
 
 | ID | Requirement | Priority | Status |
 |----|-------------|----------|--------|
-| R13 | Product detail page with image gallery | Medium | [ ] |
 | R14 | Smooth page transitions and micro-animations | Medium | [x] |
 | R15 | Multilingual support (French/Arabic/English) | Low | [ ] |
 
