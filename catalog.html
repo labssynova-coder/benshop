@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalogue — Ikherbane Chaussettes</title>
+  <meta name="description" content="Découvrez notre catalogue complet de chaussettes pour Homme, Femme et Enfants. Qualité supérieure, fabriqué en Algérie.">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+  <!-- Page Loader -->
+  <div class="page-loader" id="pageLoader">
+    <div class="page-loader__spinner"></div>
+  </div>
+
+  <!-- Mobile Overlay -->
+  <div class="navbar__overlay" id="navOverlay"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar__logo" id="navLogo">
+        <div>
+          <span class="navbar__logo-text">IKHERBAN<span class="navbar__logo-accent">E</span></span>
+          <span class="navbar__logo-sub">Chaussettes</span>
+        </div>
+      </a>
+      <ul class="navbar__nav" id="navMenu">
+        <li><a href="index.html" class="navbar__link" id="navHome">Accueil</a></li>
+        <li><a href="catalog.html" class="navbar__link active" id="navCatalog">Catalogue</a></li>
+        <li><a href="contact.html" class="navbar__link" id="navContact">Contact</a></li>
+      </ul>
+      <div class="navbar__actions">
+        <button class="navbar__action-btn" id="searchBtn" aria-label="Rechercher"><i class="fas fa-search"></i></button>
+        <button class="navbar__action-btn" id="accountBtn" aria-label="Compte"><i class="fas fa-user"></i></button>
+        <button class="navbar__action-btn" id="cartBtn" aria-label="Panier">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="navbar__cart-badge">0</span>
+        </button>
+        <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1 class="page-header__title">Catalogue</h1>
+  </div>
+
+  <!-- FILTER TABS -->
+  <section class="section" style="padding-top: var(--space-xl);">
+    <div class="container">
+      <div class="filter-tabs" id="filterTabs">
+        <button class="filter-tab active" data-filter="all" id="filterAll">Tous</button>
+        <button class="filter-tab" data-filter="homme" id="filterHomme">Homme</button>
+        <button class="filter-tab" data-filter="femme" id="filterFemme">Femme</button>
+        <button class="filter-tab" data-filter="enfants" id="filterEnfants">Enfants</button>
+        <button class="filter-tab" data-filter="autres" id="filterAutres">Autres</button>
+      </div>
+
+      <!-- PRODUCTS GRID -->
+      <div class="products__grid" id="catalogGrid">
+
+        <!-- Homme Products -->
+        <div class="product-card" data-category="homme" id="catProd1">
+          <div class="product-card__image-wrapper">
+            <img src="assets/images/prod-invisible.png" alt="Chaussettes Invisibles" class="product-card__image">
+            <span class="product-card__badge">Populaire</span>
+            <span class="product-card__quick-view">Voir détails</span>
+          </div>
+          <div class="product-card__info">
+            <span class="product-card__category">Homme</span>
+            <h3 class="product-card__name">Chaussettes Invisibles — Pack de 3</h3>
+            <div class="product-card__price">450 DA</div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="homme" id="catProd2">
+          <div class="product-card__image-wrapper">
+            <img src="assets/images/prod-dress-noir.png" alt="Chaussettes Classiques Noires" class="product-card__image">
+            <span class="product-card__quick-view">Voir détails</span>
+          </div>
+          <div class="product-card__info">
+            <span class="product-card__category">Homme</span>
+            <h3 class="product-card__name">Chaussettes Classiques Noires</h3>
+            <div class="product-card__price">350 DA</div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="homme" id="catProd3">
+          <div class="product-card__image-wrapper">
+            <img src="assets/images/prod-sport.png" alt="Chaussettes Sport" class="product-card__image">
+            <span class="product-card__badge">Nouveau</span>
+            <span class="product-card__quick-view">Voir détails</span>
+          </div>
+          <div class="product-card__info">
+            <span class="product-card__category">Homme</span>
+            <h3 class="product-card__name">Chaussettes Sport — Blanc</h3>
+            <div class="product-card__price">300 DA</div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="homme" id="catProd4">
+          <div class="product-card__image-wrapper">
+            <img src="assets/images/prod-rayures.png" alt="Chaussettes Rayées" class="product-card__image">
+            <span class="product-card__quick-view">Voir détails</span>
+          </div>
+          <div class="product-card__info">
+            <span class="product-card__category">Homme</span>
+            <h3 class="product-card__name">Chaussettes Rayées Marine</h3>
+            <div class="product-card__price">400 DA</div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="homme" id="catProd5">
+          <div class="product-card__image-wrapper">
+            <img src="assets/images/prod-coton-gris.png" alt="Chaussettes Coton Gris" class="product-card__image">
+            <span class="product-card__quick-view">Voir détails</span>
+          </div>
+          <div class="product-card__info">
+            <span class="product-card__category">Homme</span>
+            <h3 class="product-card__name">Chaussettes Coton Premium — Gris</h3>
+            <div class="product-card__price">380 DA</div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="homme" id="catProd6">
+          <div class="product-card__image-wrapper">
+            <img src="assets/images/prod-pack.png" alt="Pack Cadeau" class="product-card__image">
+            <span class="product-card__badge">Promo</span>
+            <span class="product-card__quick-view">Voir détails</span>
+          </div>
+          <div class="product-card__info">
+            <span class="product-card__category">Homme</span>
+            <h3 class="product-card__name">Pack Cadeau — 5 Paires Assorties</h3>
+            <div class="product-card__price">1 500 DA <span class="product-card__price-old">1 800 DA</span></div>
+          </div>
+        </div>
+
+        <!-- Femme Products -->
+        <div class="product-card" data-category="femme" id="catProd7">
+          <div class="product-card__image-wrapper">
+            <img src="assets/images/cat-femme.png" alt="Chaussettes Femme Rose" class="product-card__image">
+            <span class="product-card__badge">Nouveau</span>
+            <span class="product-card__quick-view">Voir détails</span>
+          </div>
+          <div class="product-card__info">
+            <span class="product-card__category">Femme</span>
+            <h3 class="product-card__name">Chaussettes Femme — Rose Élégant</h3>
+            <div class="product-card__price">320 DA</div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="femme" id="catProd8">
+          <div class="product-card__image-wrapper">
+            <img src="assets/images/prod-invisible.png" alt="Invisibles Femme" class="product-card__image">
+            <span class="product-card__quick-view">Voir détails</span>
+          </div>
+          <div class="product-card__info">
+            <span class="product-card__category">Femme</span>
+            <h3 class="product-card__name">Chaussettes Invisibles Femme</h3>
+            <div class="product-card__price">400 DA</div>
+          </div>
+        </div>
+
+        <!-- Enfants Products -->
+        <div class="product-card" data-category="enfants" id="catProd9">
+          <div class="product-card__image-wrapper">
+            <img src="assets/images/prod-enfant-color.png" alt="Chaussettes Enfants Colorées" class="product-card__image">
+            <span class="product-card__badge">Populaire</span>
+            <span class="product-card__quick-view">Voir détails</span>
+          </div>
+          <div class="product-card__info">
+            <span class="product-card__category">Enfants</span>
+            <h3 class="product-card__name">Chaussettes Colorées — Pack Enfants</h3>
+            <div class="product-card__price">250 DA</div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="enfants" id="catProd10">
+          <div class="product-card__image-wrapper">
+            <img src="assets/images/cat-enfants.png" alt="Chaussettes Enfants" class="product-card__image">
+            <span class="product-card__quick-view">Voir détails</span>
+          </div>
+          <div class="product-card__info">
+            <span class="product-card__category">Enfants</span>
+            <h3 class="product-card__name">Chaussettes Rayées Enfants</h3>
+            <div class="product-card__price">200 DA</div>
+          </div>
+        </div>
+
+        <!-- Autres Products -->
+        <div class="product-card" data-category="autres" id="catProd11">
+          <div class="product-card__image-wrapper">
+            <img src="assets/images/cat-autres.png" alt="Chaussettes Sport Mixte" class="product-card__image">
+            <span class="product-card__quick-view">Voir détails</span>
+          </div>
+          <div class="product-card__info">
+            <span class="product-card__category">Autres</span>
+            <h3 class="product-card__name">Chaussettes Sport — Mixte</h3>
+            <div class="product-card__price">280 DA</div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="autres" id="catProd12">
+          <div class="product-card__image-wrapper">
+            <img src="assets/images/cat-homme.png" alt="Chaussettes Thermiques" class="product-card__image">
+            <span class="product-card__badge">Hiver</span>
+            <span class="product-card__quick-view">Voir détails</span>
+          </div>
+          <div class="product-card__info">
+            <span class="product-card__category">Autres</span>
+            <h3 class="product-card__name">Chaussettes Thermiques — Hiver</h3>
+            <div class="product-card__price">500 DA</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer__main">
+        <div class="footer__logo">IKHERBAN<span class="accent">E</span></div>
+        <p class="footer__tagline">
+          SARL Ikherbane Chaussettes — Fabricant de chaussettes de qualité supérieure.
+          Conçues pour le confort, la durabilité et le style. Fabriqué en Algérie avec passion.
+        </p>
+        <div class="footer__social">
+          <a href="https://www.facebook.com/profile.php?id=61574887031478" target="_blank" rel="noopener" class="footer__social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="footer__social-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <div class="footer__contact-info">
+          <span class="footer__contact-item"><i class="fas fa-phone footer__contact-icon"></i> 035 74 98 98</span>
+          <span class="footer__contact-item"><i class="fas fa-mobile-screen footer__contact-icon"></i> 0772 26 84 27</span>
+          <span class="footer__contact-item"><i class="fas fa-location-dot footer__contact-icon"></i> Bordj Bou Arreridj, Algérie</span>
+        </div>
+      </div>
+      <div class="footer__divider"></div>
+      <div class="footer__bottom">
+        <span class="footer__copyright">© 2026 Ikherbane Chaussettes. Tous droits réservés.</span>
+        <div class="footer__links">
+          <a href="#" class="footer__link">Politique de confidentialité</a>
+          <a href="#" class="footer__link">Conditions de vente</a>
+          <a href="contact.html" class="footer__link">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

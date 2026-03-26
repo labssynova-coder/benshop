@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Ikherbane Chaussettes</title>
+  <meta name="description" content="Contactez SARL Ikherbane Chaussettes. Téléphone: 035 74 98 98. Bordj Bou Arreridj, Algérie.">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+  <!-- Page Loader -->
+  <div class="page-loader" id="pageLoader">
+    <div class="page-loader__spinner"></div>
+  </div>
+
+  <!-- Mobile Overlay -->
+  <div class="navbar__overlay" id="navOverlay"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar__logo" id="navLogo">
+        <div>
+          <span class="navbar__logo-text">IKHERBAN<span class="navbar__logo-accent">E</span></span>
+          <span class="navbar__logo-sub">Chaussettes</span>
+        </div>
+      </a>
+      <ul class="navbar__nav" id="navMenu">
+        <li><a href="index.html" class="navbar__link" id="navHome">Accueil</a></li>
+        <li><a href="catalog.html" class="navbar__link" id="navCatalog">Catalogue</a></li>
+        <li><a href="contact.html" class="navbar__link active" id="navContact">Contact</a></li>
+      </ul>
+      <div class="navbar__actions">
+        <button class="navbar__action-btn" id="searchBtn" aria-label="Rechercher"><i class="fas fa-search"></i></button>
+        <button class="navbar__action-btn" id="accountBtn" aria-label="Compte"><i class="fas fa-user"></i></button>
+        <button class="navbar__action-btn" id="cartBtn" aria-label="Panier">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="navbar__cart-badge">0</span>
+        </button>
+        <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1 class="page-header__title">Contactez-Nous</h1>
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact-section section">
+    <div class="container">
+      <div class="contact__grid">
+
+        <!-- Contact Form -->
+        <div>
+          <h2 style="font-size: var(--font-size-xl); font-weight: 700; margin-bottom: var(--space-xl); color: var(--color-text);">
+            Envoyez-nous un message
+          </h2>
+          <form class="contact__form" id="contactForm">
+            <div class="contact__form-group">
+              <label class="contact__label" for="contactName">Nom complet</label>
+              <input type="text" class="contact__input" id="contactName" name="name" placeholder="Votre nom" required>
+            </div>
+            <div class="contact__form-group">
+              <label class="contact__label" for="contactEmail">Email</label>
+              <input type="email" class="contact__input" id="contactEmail" name="email" placeholder="votre@email.com" required>
+            </div>
+            <div class="contact__form-group">
+              <label class="contact__label" for="contactPhone">Téléphone</label>
+              <input type="tel" class="contact__input" id="contactPhone" name="phone" placeholder="0XXX XX XX XX">
+            </div>
+            <div class="contact__form-group">
+              <label class="contact__label" for="contactSubject">Sujet</label>
+              <input type="text" class="contact__input" id="contactSubject" name="subject" placeholder="Ex: Commande en gros" required>
+            </div>
+            <div class="contact__form-group">
+              <label class="contact__label" for="contactMessage">Message</label>
+              <textarea class="contact__textarea" id="contactMessage" name="message" placeholder="Votre message..." required></textarea>
+            </div>
+            <button type="submit" class="contact__submit" id="contactSubmitBtn">Envoyer le message</button>
+          </form>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact__info">
+          <h2 style="font-size: var(--font-size-xl); font-weight: 700; margin-bottom: var(--space-xl); color: var(--color-text);">
+            Nos Coordonnées
+          </h2>
+
+          <div class="contact__info-card" id="infoPhone">
+            <div class="contact__info-icon"><i class="fas fa-phone"></i></div>
+            <div>
+              <div class="contact__info-title">Téléphone</div>
+              <div class="contact__info-text">
+                Tel: 035 74 98 98<br>
+                Mob: 0772 26 84 27<br>
+                Mob: 0696 40 95 37
+              </div>
+            </div>
+          </div>
+
+          <div class="contact__info-card" id="infoAddress">
+            <div class="contact__info-icon"><i class="fas fa-location-dot"></i></div>
+            <div>
+              <div class="contact__info-title">Adresse</div>
+              <div class="contact__info-text">
+                SARL Ikherbane Chaussettes<br>
+                Bordj Bou Arreridj<br>
+                Point de vente: El Eulma<br>
+                Algérie
+              </div>
+            </div>
+          </div>
+
+          <div class="contact__info-card" id="infoHours">
+            <div class="contact__info-icon"><i class="fas fa-clock"></i></div>
+            <div>
+              <div class="contact__info-title">Horaires</div>
+              <div class="contact__info-text">
+                Samedi — Jeudi: 8h00 — 17h00<br>
+                Vendredi: Fermé
+              </div>
+            </div>
+          </div>
+
+          <div class="contact__info-card" id="infoSocial">
+            <div class="contact__info-icon"><i class="fab fa-facebook"></i></div>
+            <div>
+              <div class="contact__info-title">Réseaux Sociaux</div>
+              <div class="contact__info-text">
+                <a href="https://www.facebook.com/profile.php?id=61574887031478" target="_blank" rel="noopener" style="color: var(--color-accent); font-weight: 600;">
+                  SARL Ikherbane Chaussettes
+                </a><br>
+                <a href="https://www.facebook.com/profile.php?id=100075988448179" target="_blank" rel="noopener" style="color: var(--color-accent); font-weight: 600;">
+                  Point de vente — El Eulma
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Map -->
+          <div class="contact__map" id="contactMap">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51300.8!2d4.7!3d36.07!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12f3e3c29fe4a0c7%3A0x1b0b7e0b2d2b5e4e!2sBordj%20Bou%20Arreridj!5e0!3m2!1sfr!2sdz!4v1"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Localisation Ikherbane - Bordj Bou Arreridj">
+            </iframe>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer__main">
+        <div class="footer__logo">IKHERBAN<span class="accent">E</span></div>
+        <p class="footer__tagline">
+          SARL Ikherbane Chaussettes — Fabricant de chaussettes de qualité supérieure.
+          Conçues pour le confort, la durabilité et le style. Fabriqué en Algérie avec passion.
+        </p>
+        <div class="footer__social">
+          <a href="https://www.facebook.com/profile.php?id=61574887031478" target="_blank" rel="noopener" class="footer__social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="footer__social-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <div class="footer__contact-info">
+          <span class="footer__contact-item"><i class="fas fa-phone footer__contact-icon"></i> 035 74 98 98</span>
+          <span class="footer__contact-item"><i class="fas fa-mobile-screen footer__contact-icon"></i> 0772 26 84 27</span>
+          <span class="footer__contact-item"><i class="fas fa-location-dot footer__contact-icon"></i> Bordj Bou Arreridj, Algérie</span>
+        </div>
+      </div>
+      <div class="footer__divider"></div>
+      <div class="footer__bottom">
+        <span class="footer__copyright">© 2026 Ikherbane Chaussettes. Tous droits réservés.</span>
+        <div class="footer__links">
+          <a href="#" class="footer__link">Politique de confidentialité</a>
+          <a href="#" class="footer__link">Conditions de vente</a>
+          <a href="contact.html" class="footer__link">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
