@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node .agent/get-shit-done/bin/gsd-tools.cjs --version)",
+      "Skill(gsd:progress)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)"
+    ]
+  }
+}
