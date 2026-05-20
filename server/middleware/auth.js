@@ -5,10 +5,13 @@ const { getError } = require('../utils/errors');
 
 function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+  const cookieToken = parseCookie(req.headers.cookie || '').benshop_admin_token;
+  if ((!authHeader || !authHeader.startsWith('Bearer ')) && !cookieToken) {
     return res.status(401).json({ error: getError('TOKEN_REQUIRED') });
   }
-  const token = authHeader.split(' ')[1];
+  const token = authHeader && authHeader.startsWith('Bearer ')
+    ? authHeader.split(' ')[1]
+    : cookieToken;
   try {
     const decoded = jwt.verify(token, config.jwtSecret, { algorithms: ['HS256'] });
     // Check if user is still active
@@ -26,6 +29,17 @@ function authMiddleware(req, res, next) {
     }
     return res.status(401).json({ error: getError('TOKEN_INVALID') });
   }
+}
+
+function parseCookie(header) {
+  return header.split(';').reduce((cookies, part) => {
+    const idx = part.indexOf('=');
+    if (idx === -1) return cookies;
+    const key = part.slice(0, idx).trim();
+    const value = part.slice(idx + 1).trim();
+    if (key) cookies[key] = decodeURIComponent(value);
+    return cookies;
+  }, {});
 }
 
 function adminMiddleware(req, res, next) {

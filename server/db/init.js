@@ -197,8 +197,12 @@ async function initDB() {
       db.run('ALTER TABLE order_items ADD COLUMN selected_image TEXT');
     }
     // Migrate existing products: combine sizes/colors into variants format
-    const products = db.exec('SELECT id, image, sizes, colors FROM products');
-    if (products && products.length > 0) {
+    if (prodCols.includes('sizes') || prodCols.includes('colors')) {
+      const selectCols = ['id', 'image'];
+      if (prodCols.includes('sizes')) selectCols.push('sizes');
+      if (prodCols.includes('colors')) selectCols.push('colors');
+      const products = db.exec(`SELECT ${selectCols.join(', ')} FROM products`);
+      if (products && products.length > 0) {
       const cols = products[0].columns;
       products[0].values.forEach(row => {
         const prod = {};
@@ -217,6 +221,7 @@ async function initDB() {
           db.run('UPDATE products SET variants = ? WHERE id = ?', [JSON.stringify(variants), prod.id]);
         }
       });
+      }
     }
     db.run('INSERT INTO schema_version (version) VALUES (5)');
     console.log('Migration 5: Applied (variants column on products, selected_image on order_items, data migration)');

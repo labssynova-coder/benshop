@@ -120,6 +120,11 @@ router.get('/:id', (req, res) => {
     if (!order) {
       return res.status(404).json({ error: getError('ORDER_NOT_FOUND') });
     }
+    const phone = String(req.query.phone || '').replace(/\D/g, '');
+    const orderPhone = String(order.customer_phone || '').replace(/\D/g, '');
+    if (!phone || phone.slice(-6) !== orderPhone.slice(-6)) {
+      return res.status(403).json({ error: getError('TOKEN_INVALID') });
+    }
 
     const items = queryAll('SELECT * FROM order_items WHERE order_id = ?', [req.params.id]);
     res.json({

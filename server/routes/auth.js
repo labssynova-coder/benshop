@@ -6,6 +6,7 @@ const rateLimit = require('express-rate-limit');
 const { queryGet } = require('../db/init');
 const config = require('../config');
 const { getError } = require('../utils/errors');
+const { authMiddleware, adminMiddleware } = require('../middleware/auth');
 
 const loginLimiter = rateLimit({
   windowMs: config.rateLimitWindowMs,
@@ -38,8 +39,15 @@ router.post('/login', loginLimiter, (req, res) => {
       { expiresIn: config.jwtExpiresIn }
     );
 
+    res.cookie('benshop_admin_token', token, {
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: config.nodeEnv === 'production',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: '/',
+    });
+
     res.json({
-      token,
       user: {
         id: user.id,
         name: user.name,
@@ -54,6 +62,15 @@ router.post('/login', loginLimiter, (req, res) => {
     console.error('Login error:', err);
     res.status(500).json({ error: getError('SERVER_ERROR') });
   }
+});
+
+router.get('/me', authMiddleware, adminMiddleware, (req, res) => {
+  res.json({ user: req.user });
+});
+
+router.post('/logout', (req, res) => {
+  res.clearCookie('benshop_admin_token', { path: '/' });
+  res.json({ ok: true });
 });
 
 module.exports = router;

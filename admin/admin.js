@@ -5,7 +5,8 @@
 const API = '/api/admin';
 
 function locale() { return adminLang === 'ar' ? 'ar-DZ' : adminLang === 'en' ? 'en-US' : 'fr-FR'; }
-let token = localStorage.getItem('benshop_admin_token');
+let token = null;
+localStorage.removeItem('benshop_admin_token');
 let admin = JSON.parse(localStorage.getItem('benshop_admin_user') || 'null');
 
 // Product images state
@@ -76,7 +77,7 @@ async function apiFetch(path, options = {}) {
   if (options.body) headers['Content-Type'] = 'application/json';
   if (token) headers['Authorization'] = `Bearer ${token}`;
   try {
-    const res = await fetch(API + path, { ...options, headers });
+    const res = await fetch(API + path, { ...options, headers, credentials: 'same-origin' });
     if (res.status === 401) { logout(); return null; }
     if (!res.ok && res.status !== 400 && res.status !== 404 && res.status !== 409) {
       showToast(ta('server_error') || 'Erreur serveur', 'error');
@@ -108,8 +109,30 @@ const loginForm = document.getElementById('loginForm');
 const loginScreen = document.getElementById('loginScreen');
 const appScreen = document.getElementById('appScreen');
 
-function checkAuth() {
+async function checkAuth() {
+  if (admin && admin.role === 'admin') {
+    try {
+      const res = await fetch('/api/auth/me', { credentials: 'same-origin' });
+      if (res.ok) {
+        const data = await res.json();
+        admin = data.user;
+        localStorage.setItem('benshop_admin_user', JSON.stringify(admin));
+      } else {
+        admin = null;
+        localStorage.removeItem('benshop_admin_user');
+      }
+    } catch {
+      admin = null;
+      localStorage.removeItem('benshop_admin_user');
+    }
+  }
+
   if (token && admin && admin.role === 'admin') {
+    loginScreen.style.display = 'none';
+    appScreen.style.display = 'flex';
+    document.getElementById('adminName').textContent = admin.name || admin.email;
+    renderPage();
+  } else if (admin && admin.role === 'admin') {
     loginScreen.style.display = 'none';
     appScreen.style.display = 'flex';
     document.getElementById('adminName').textContent = admin.name || admin.email;
@@ -156,9 +179,8 @@ if (loginForm) {
         return;
       }
 
-      token = data.token;
+      token = data.token || null;
       admin = data.user;
-      localStorage.setItem('benshop_admin_token', token);
       localStorage.setItem('benshop_admin_user', JSON.stringify(admin));
       checkAuth();
     } catch (err) {
@@ -170,11 +192,13 @@ if (loginForm) {
   });
 }
 
-function logout() {
+async function logout() {
   token = null;
   admin = null;
-  localStorage.removeItem('benshop_admin_token');
   localStorage.removeItem('benshop_admin_user');
+  try {
+    await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' });
+  } catch {}
   checkAuth();
 }
 
@@ -448,7 +472,7 @@ document.getElementById('prodImageFile')?.addEventListener('change', async funct
       try {
         const res = await fetch(`/api/admin/products/${encodeURIComponent(editId)}/image`, {
           method: 'POST',
-          headers: { 'Authorization': 'Bearer ' + token },
+          credentials: 'same-origin',
           body: formData,
         });
         const data = await res.json();
@@ -530,7 +554,7 @@ async function uploadPendingImages(productId) {
     try {
       const res = await fetch(`/api/admin/products/${encodeURIComponent(productId)}/image`, {
         method: 'POST',
-        headers: { 'Authorization': 'Bearer ' + token },
+        credentials: 'same-origin',
         body: formData,
       });
       const data = await res.json();
@@ -740,11 +764,9 @@ async function updateOrderStatus(orderId, status) {
 // MESSAGES
 // ==========================================
 async function exportOrdersCSV() {
-  const token = localStorage.getItem('benshop_admin_token');
-  if (!token) { showToast(ta('error_auth'), 'error'); return; }
   try {
     const res = await fetch('/api/admin/orders/export', {
-      headers: { 'Authorization': 'Bearer ' + token }
+      credentials: 'same-origin'
     });
     if (!res.ok) throw new Error('Export failed');
     const blob = await res.blob();

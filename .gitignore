@@ -9,8 +9,6 @@ node_modules/
 # Database files
 *.sqlite
 *.sqlite3
-server/db/*.sqlite
-server/db/*.sqlite3
 
 # Uploaded files (user-generated content)
 public/uploads/
@@ -27,18 +25,18 @@ yarn-error.log*
 Thumbs.db
 desktop.ini
 
-# Editor/IDE
+# Editor / IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# Agent/planning tooling (local dev tools, not project code)
-.agent/
-.planning/
-.claude/
-
 # Coverage & test output
 coverage/
 .nyc_output/
+
+# Agent / planning / local tooling
+.agent/
+.planning/
+.claude/

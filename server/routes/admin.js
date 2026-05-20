@@ -4,7 +4,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
-const { queryAll, queryGet, run } = require('../db/init');
+const { queryAll, queryGet, run, beginTransaction, commitTransaction, rollbackTransaction } = require('../db/init');
 const config = require('../config');
 const { authMiddleware, adminMiddleware } = require('../middleware/auth');
 const { sanitize } = require('../utils/validators');
@@ -32,9 +32,32 @@ const upload = multer({
   limits: { fileSize: config.maxUploadSize },
   fileFilter: (req, file, cb) => {
     const ext = path.extname(file.originalname).toLowerCase();
-    cb(null, config.allowedUploadExtensions.includes(ext));
+    const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+    cb(null, config.allowedUploadExtensions.includes(ext) && allowedMimeTypes.includes(file.mimetype));
   }
 });
+
+function isValidImageFile(filePath) {
+  const fd = fs.openSync(filePath, 'r');
+  try {
+    const buffer = Buffer.alloc(12);
+    const bytes = fs.readSync(fd, buffer, 0, buffer.length, 0);
+    if (bytes < 4) return false;
+    const isJpeg = buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff;
+    const isPng = buffer.slice(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]));
+    const isGif = buffer.slice(0, 6).toString('ascii') === 'GIF87a' || buffer.slice(0, 6).toString('ascii') === 'GIF89a';
+    const isWebp = buffer.slice(0, 4).toString('ascii') === 'RIFF' && buffer.slice(8, 12).toString('ascii') === 'WEBP';
+    return isJpeg || isPng || isGif || isWebp;
+  } finally {
+    fs.closeSync(fd);
+  }
+}
+
+function csvCell(value) {
+  let str = String(value ?? '').replace(/"/g, '""');
+  if (/^[=+\-@]/.test(str)) str = `'${str}`;
+  return `"${str}"`;
+}
 
 // ==========================================
 // DASHBOARD
@@ -185,7 +208,10 @@ router.delete('/products/:id/permanent', (req, res) => {
   try {
     const existing = queryGet('SELECT id FROM products WHERE id = ?', [req.params.id]);
     if (!existing) return res.status(404).json({ error: getError('PRODUCT_NOT_FOUND') });
-    run('DELETE FROM order_items WHERE product_id = ?', [req.params.id]);
+    const orderRefs = queryGet('SELECT COUNT(*) as count FROM order_items WHERE product_id = ?', [req.params.id])?.count || 0;
+    if (orderRefs > 0) {
+      return res.status(409).json({ error: 'Ce produit existe dans des commandes. Désactivez-le au lieu de le supprimer définitivement.' });
+    }
     run('DELETE FROM products WHERE id = ?', [req.params.id]);
     logAction(req.user.id, 'product.deleted', 'product', req.params.id);
     res.json({ message: getError('PRODUCT_DELETED') });
@@ -198,6 +224,10 @@ router.delete('/products/:id/permanent', (req, res) => {
 router.post('/products/:id/image', upload.single('image'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: getError('IMAGE_REQUIRED') });
+  }
+  if (!isValidImageFile(req.file.path)) {
+    if (fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
+    return res.status(400).json({ error: getError('IMAGE_PATH_INVALID') });
   }
 
   const imagePath = `uploads/products/${req.file.filename}`;
@@ -342,12 +372,9 @@ router.get('/orders/export', (req, res) => {
       deliveryLabels[o.delivery_type] || o.delivery_type || '',
       statusLabels[o.status] || o.status,
       o.notes || ''
-    ].map(field => {
-      const str = String(field).replace(/"/g, '""');
-      return `"${str}"`;
-    }).join(','));
+    ].map(csvCell).join(','));
 
-    const csv = [headers.map(h => `"${h}"`).join(','), ...rows].join('\n');
+    const csv = [headers.map(csvCell).join(','), ...rows].join('\n');
     const filename = `benshop_orders_${new Date().toISOString().split('T')[0]}.csv`;
 
     res.setHeader('Content-Type', 'text/csv; charset=utf-8');
@@ -384,24 +411,42 @@ router.put('/orders/:id/status', (req, res) => {
     const existing = queryGet('SELECT id, status FROM orders WHERE id = ?', [req.params.id]);
     if (!existing) return res.status(404).json({ error: getError('ORDER_NOT_FOUND') });
 
-    // Decrement stock when order is confirmed (from pending)
-    if (status === 'confirmed' && existing.status === 'pending') {
+    beginTransaction();
+    try {
       const items = queryAll('SELECT product_id, quantity FROM order_items WHERE order_id = ?', [req.params.id]);
-      for (const item of items) {
-        run('UPDATE products SET stock = stock - ? WHERE id = ? AND stock IS NOT NULL AND stock >= ?', [item.quantity, item.product_id, item.quantity]);
-      }
-    }
 
-    // Restore stock when order is cancelled (from confirmed)
-    if (status === 'cancelled' && existing.status === 'confirmed') {
-      const items = queryAll('SELECT product_id, quantity FROM order_items WHERE order_id = ?', [req.params.id]);
-      for (const item of items) {
-        run('UPDATE products SET stock = stock + ? WHERE id = ? AND stock IS NOT NULL', [item.quantity, item.product_id]);
+      // Decrement stock when order is confirmed (from pending)
+      if (status === 'confirmed' && existing.status === 'pending') {
+        for (const item of items) {
+          const product = queryGet('SELECT id, name, stock FROM products WHERE id = ?', [item.product_id]);
+          if (!product) {
+            rollbackTransaction();
+            return res.status(409).json({ error: `${getError('PRODUCT_NOT_FOUND')}: ${item.product_id}` });
+          }
+          if (product.stock !== null && product.stock !== undefined && product.stock < item.quantity) {
+            rollbackTransaction();
+            return res.status(409).json({ error: `${getError('STOCK_INSUFFICIENT')}: ${product.name}. Disponible: ${product.stock}` });
+          }
+        }
+        for (const item of items) {
+          run('UPDATE products SET stock = stock - ? WHERE id = ? AND stock IS NOT NULL', [item.quantity, item.product_id]);
+        }
       }
-    }
 
-    run("UPDATE orders SET status = ?, updated_at = datetime('now') WHERE id = ?", [status, req.params.id]);
-    logAction(req.user.id, `order.${status}`, 'order', req.params.id);
+      // Restore stock when cancelling an order that already reserved stock
+      if (status === 'cancelled' && ['confirmed', 'shipped', 'delivered'].includes(existing.status)) {
+        for (const item of items) {
+          run('UPDATE products SET stock = stock + ? WHERE id = ? AND stock IS NOT NULL', [item.quantity, item.product_id]);
+        }
+      }
+
+      run("UPDATE orders SET status = ?, updated_at = datetime('now') WHERE id = ?", [status, req.params.id]);
+      logAction(req.user.id, `order.${status}`, 'order', req.params.id);
+      commitTransaction();
+    } catch (txErr) {
+      rollbackTransaction();
+      throw txErr;
+    }
 
     res.json({ message: `${getError('ORDER_UPDATED')}: ${status}` });
   } catch (err) {

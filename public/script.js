@@ -486,6 +486,48 @@ document.addEventListener('DOMContentLoaded', () => {
   function initProductUI() {
     if (typeof products === 'undefined' || products.length === 0) return;
 
+    const catalogGrid = document.getElementById('catalogGrid');
+    if (catalogGrid) {
+      catalogGrid.innerHTML = '';
+      products.forEach(product => {
+        const badgeHtml = product.badge ? `<span class="product-card__badge" data-i18n="badge_${String(product.badge).toLowerCase()}">${esc(product.badge)}</span>` : '';
+        const oldPriceHtml = product.oldPrice ? ` <span class="product-card__price-old">${product.oldPrice} <span data-i18n="currency">${t('currency')}</span></span>` : '';
+        const category = normalizeFilterValue(product.category || 'autres');
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.dataset.id = product.id;
+        card.dataset.category = category;
+        if (product.family) card.dataset.family = normalizeFilterValue(product.family);
+        card.innerHTML = `
+          <div class="product-card__image-wrapper">
+            <img src="/${product.image || 'assets/images/placeholder.svg'}" alt="${esc(product.name)}" class="product-card__image" loading="lazy">
+            ${badgeHtml}
+            <span class="product-card__quick-view" data-i18n="quick_view">${t('quick_view')}</span>
+          </div>
+          <div class="product-card__info">
+            <span class="product-card__category" data-i18n="cat_${category}">${t('cat_' + category)}</span>
+            <h3 class="product-card__name">${esc(product.name)}</h3>
+            <div class="product-card__footer">
+              <div class="product-card__price">${product.price} <span data-i18n="currency">${t('currency')}</span>${oldPriceHtml}</div>
+            </div>
+          </div>`;
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', () => {
+          window.location.href = `product.html?id=${encodeURIComponent(product.id)}`;
+        });
+        const dynImg = card.querySelector('.product-card__image');
+        if (dynImg) {
+          dynImg.addEventListener('error', handleImageError);
+          dynImg.addEventListener('load', () => dynImg.classList.add('loaded'));
+        }
+        catalogGrid.appendChild(card);
+      });
+      if (typeof applyTranslations === 'function') {
+        applyTranslations(currentLang);
+      }
+      return;
+    }
+
     const matchedIds = new Set();
     document.querySelectorAll('.product-card').forEach(card => {
       const nameEl = card.querySelector('.product-card__name');
@@ -1116,6 +1158,8 @@ document.addEventListener('DOMContentLoaded', () => {
         window.saveCart();
         renderCart();
         window.updateCartBadge();
+        confirmOrderBtn.disabled = false;
+        confirmOrderBtn.innerHTML = t('cart_confirm');
         window.closeCart();
 
         // Show success with order reference
