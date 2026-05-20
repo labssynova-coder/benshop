@@ -311,6 +311,10 @@ document.addEventListener('DOMContentLoaded', () => {
         clearTimeout(card._filterHideTimer);
         card._filterHideTimer = null;
       }
+      if (card._filterShowTimer) {
+        clearTimeout(card._filterShowTimer);
+        card._filterShowTimer = null;
+      }
 
       const cardCategory = normalizeFilterValue(card.dataset.category);
       const cardFamily = normalizeFilterValue(card.dataset.family);
@@ -326,12 +330,20 @@ document.addEventListener('DOMContentLoaded', () => {
           card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
           card.style.opacity = '1';
           card.style.transform = 'translateY(0)';
+          card._filterShowTimer = setTimeout(() => {
+            card.style.removeProperty('opacity');
+            card.style.removeProperty('transform');
+            card.style.removeProperty('transition');
+            card._filterShowTimer = null;
+          }, 420);
         });
       } else {
         card.style.opacity = '0';
         card.style.transform = 'translateY(20px)';
         card._filterHideTimer = setTimeout(() => {
           card.style.display = 'none';
+          card.style.removeProperty('opacity');
+          card.style.removeProperty('transform');
           card._filterHideTimer = null;
         }, 400);
       }
