@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+
+# Environment variables (contains secrets)
+.env
+.env.local
+.env.*.local
+
+# Database files
+*.sqlite
+*.sqlite3
+server/db/*.sqlite
+server/db/*.sqlite3
+
+# Uploaded files (user-generated content)
+public/uploads/
+admin/uploads/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Agent/planning tooling (local dev tools, not project code)
+.agent/
+.planning/
+.claude/
+
+# Coverage & test output
+coverage/
+.nyc_output/

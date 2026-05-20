@@ -1,0 +1,116 @@
+/* ==========================================
+   BENSHOP — RTL Overrides (Arabic)
+   ========================================== */
+
+html[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .navbar__logo {
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .navbar__nav {
+  direction: rtl;
+}
+
+html[dir="rtl"] .navbar__actions {
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .hero__content {
+  text-align: center;
+}
+
+html[dir="rtl"] .products__grid {
+  direction: rtl;
+}
+
+html[dir="rtl"] .product-card__info {
+  text-align: right;
+}
+
+html[dir="rtl"] .product-card__badge {
+  right: auto;
+  left: 12px;
+}
+
+html[dir="rtl"] .product-card__quick-view {
+  right: auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+html[dir="rtl"] .filter-tabs {
+  direction: rtl;
+}
+
+html[dir="rtl"] .footer__main {
+  direction: rtl;
+}
+
+html[dir="rtl"] .footer__social {
+  justify-content: flex-start;
+}
+
+html[dir="rtl"] .contact__grid {
+  direction: rtl;
+}
+
+html[dir="rtl"] .contact__info-card {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+html[dir="rtl"] .contact__info-icon {
+  margin-right: 0;
+  margin-left: var(--space-3);
+}
+
+html[dir="rtl"] .cart-drawer {
+  right: auto;
+  left: 0;
+  transform: translateX(-100%);
+}
+
+html[dir="rtl"] .cart-drawer.active {
+  transform: translateX(0);
+}
+
+html[dir="rtl"] .product-page__layout {
+  direction: rtl;
+}
+
+html[dir="rtl"] .product-page__back {
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .product-page__qty {
+  direction: rtl;
+}
+
+html[dir="rtl"] .modal {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .search-input-wrapper i {
+  left: auto;
+  right: 14px;
+}
+
+html[dir="rtl"] .search-input-wrapper input {
+  padding-left: 14px;
+  padding-right: 44px;
+}
+
+/* RTL overrides for language switcher dropdown */
+html[dir="rtl"] .lang-dropdown button {
+  text-align: right;
+}
+
+html[dir="rtl"] .lang-dropdown {
+  right: auto;
+  left: 0;
+}

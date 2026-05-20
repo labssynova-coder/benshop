@@ -1,0 +1,116 @@
+/* ==========================================
+   BENSHOP Admin — RTL Overrides (Arabic)
+   ========================================== */
+
+html[dir="rtl"] body {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .sidebar {
+  right: 0;
+  left: auto;
+  transform: none;
+}
+
+html[dir="rtl"] .main-content {
+  margin-right: var(--sidebar-width);
+  margin-left: 0;
+}
+
+html[dir="rtl"] .topbar {
+  left: 0;
+  right: var(--sidebar-width);
+}
+
+html[dir="rtl"] .sidebar-nav {
+  direction: rtl;
+}
+
+html[dir="rtl"] .sidebar-nav a,
+html[dir="rtl"] .sidebar-nav button {
+  text-align: right;
+}
+
+html[dir="rtl"] .sidebar-footer {
+  direction: rtl;
+}
+
+html[dir="rtl"] .sidebar-footer a,
+html[dir="rtl"] .sidebar-footer button {
+  text-align: right;
+}
+
+html[dir="rtl"] .data-table th,
+html[dir="rtl"] .data-table td {
+  text-align: right;
+}
+
+html[dir="rtl"] .modal-overlay {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .form-group label {
+  text-align: right;
+}
+
+html[dir="rtl"] .topbar {
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .topbar-actions {
+  margin-left: 0;
+  margin-right: auto;
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .content-area {
+  direction: rtl;
+}
+
+html[dir="rtl"] .form-row {
+  direction: rtl;
+}
+
+html[dir="rtl"] .stats-grid {
+  direction: rtl;
+}
+
+html[dir="rtl"] .table-filters {
+  direction: rtl;
+}
+
+html[dir="rtl"] .login-card {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .lang-dropdown {
+  right: auto;
+  left: 0;
+}
+
+html[dir="rtl"] .lang-dropdown button {
+  text-align: right;
+}
+
+/* Responsive: sidebar off-screen in RTL */
+@media (max-width: 768px) {
+  html[dir="rtl"] .sidebar {
+    right: -100%;
+    left: auto;
+  }
+  html[dir="rtl"] .sidebar.open {
+    right: 0;
+  }
+  html[dir="rtl"] .main-content {
+    margin-right: 0;
+  }
+}
+
+html[dir="rtl"] .sidebar-link.active { border-right: none; border-left: 3px solid var(--color-accent); }
+html[dir="rtl"] .image-remove-btn { right: auto; left: -6px; }
+html[dir="rtl"] .order-actions { direction: rtl; }
+html[dir="rtl"] .chip { direction: rtl; }
+html[dir="rtl"] .image-gallery { direction: rtl; }

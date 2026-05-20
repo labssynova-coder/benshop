@@ -1,0 +1,337 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion des Cookies — BENSHOP Chaussettes</title>
+  <meta name="description" content="Consentement aux cookies et informations sur l'utilisation des cookies par BENSHOP Chaussettes.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#6C63FF">
+  <link rel="canonical" href="https://benshop.dz/cookies.html">
+  <meta property="og:title" content="Gestion des Cookies — BENSHOP Chaussettes">
+  <meta property="og:description" content="Consentement aux cookies et informations sur l'utilisation des cookies par BENSHOP Chaussettes.">
+  <meta property="og:image" content="https://benshop.dz/assets/images/og-image.svg">
+  <meta property="og:url" content="https://benshop.dz/cookies.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Gestion des Cookies — BENSHOP Chaussettes">
+  <meta name="twitter:description" content="Consentement aux cookies et informations sur l'utilisation des cookies par BENSHOP Chaussettes.">
+  <meta name="twitter:image" content="https://benshop.dz/assets/images/og-image.svg">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧦</text></svg>">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    .cookie-banner {
+      background: var(--color-bg-alt);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .cookie-banner__icon {
+      font-size: 48px;
+      color: var(--color-accent);
+      margin-bottom: var(--space-4);
+    }
+    .cookie-banner__title {
+      font-family: var(--font-display);
+      font-size: var(--font-size-xl);
+      font-weight: 700;
+      margin-bottom: var(--space-4);
+    }
+    .cookie-banner__text {
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      margin-bottom: var(--space-6);
+      text-align: left;
+    }
+    .cookie-banner__text strong {
+      color: var(--color-text);
+    }
+    .cookie-banner__buttons {
+      display: flex;
+      gap: var(--space-4);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cookie-btn {
+      padding: var(--space-3) var(--space-8);
+      border-radius: var(--radius-full);
+      font-family: var(--font-body);
+      font-size: var(--font-size-base);
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .cookie-btn--accept {
+      background: var(--color-accent);
+      color: #FFF;
+    }
+    .cookie-btn--accept:hover {
+      background: var(--color-accent-dark);
+      transform: translateY(-1px);
+    }
+    .cookie-btn--decline {
+      background: transparent;
+      color: var(--color-text-secondary);
+      border: 1.5px solid var(--color-border);
+    }
+    .cookie-btn--decline:hover {
+      border-color: var(--color-text-secondary);
+      color: var(--color-text);
+    }
+    .cookie-info {
+      margin-top: var(--space-8);
+      background: var(--color-bg-alt);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      text-align: left;
+    }
+    .cookie-info h3 {
+      font-family: var(--font-display);
+      font-size: var(--font-size-lg);
+      font-weight: 700;
+      margin-bottom: var(--space-4);
+    }
+    .cookie-info p {
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      margin-bottom: var(--space-4);
+    }
+    .cookie-info ul {
+      color: var(--color-text-secondary);
+      padding-left: var(--space-6);
+      margin-bottom: var(--space-4);
+    }
+    .cookie-info li {
+      margin-bottom: var(--space-2);
+    }
+    .cookie-info a {
+      color: var(--color-accent);
+      font-weight: 600;
+    }
+    .analytics-note {
+      background: rgba(108, 99, 255, 0.08);
+      border-left: 3px solid var(--color-accent);
+      padding: var(--space-4);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin-top: var(--space-4);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+    .analytics-note strong {
+      color: var(--color-text);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-loader" id="pageLoader"><div class="page-loader__spinner"></div></div>
+  <div class="navbar__overlay" id="navOverlay"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar__logo">
+        <div>
+          <span class="navbar__logo-text">BEN<span class="navbar__logo-accent">SHOP</span></span>
+          <span class="navbar__logo-sub" data-i18n="hero_accent">Chaussettes</span>
+        </div>
+        <i class="fas fa-cart-shopping navbar__cart-icon"></i>
+      </a>
+      <ul class="navbar__nav" id="navMenu">
+        <li><a href="index.html" class="navbar__link" data-i18n="nav_home">Accueil</a></li>
+        <li><a href="catalog.html" class="navbar__link" data-i18n="nav_catalog">Catalogue</a></li>
+        <li><a href="contact.html" class="navbar__link" data-i18n="nav_contact">Contact</a></li>
+      </ul>
+      <div class="navbar__actions">
+        <div class="lang-switcher">
+          <button class="lang-btn" id="langToggle">FR</button>
+          <div class="lang-dropdown" id="langDropdown">
+            <button data-lang="fr">Français</button>
+            <button data-lang="en">English</button>
+            <button data-lang="ar">العربية</button>
+          </div>
+        </div>
+        <button class="navbar__action-btn" id="searchBtn" data-i18n-aria="nav_search" aria-label="Rechercher"><i class="fas fa-search"></i></button>
+        <button class="navbar__action-btn" id="cartBtn" data-i18n-aria="nav_cart" aria-label="Panier">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="navbar__cart-badge">0</span>
+        </button>
+        <button class="navbar__toggle" id="navToggle" data-i18n-aria="nav_menu" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1 class="page-header__title" data-i18n="cookies_title">Gestion des Cookies</h1>
+  </div>
+
+  <!-- COOKIE CONTENT -->
+  <section class="section" style="padding-top: var(--space-12); padding-bottom: var(--space-24);">
+    <div class="container" style="max-width: 800px;">
+
+      <div class="cookie-banner animate-on-scroll">
+        <div class="cookie-banner__icon"><i class="fas fa-cookie-bite"></i></div>
+        <h2 class="cookie-banner__title" data-i18n="cookies_subtitle">Votre vie privée nous importe</h2>
+        <p class="cookie-banner__text" data-i18n="cookies_desc">
+          Nous utilisons des cookies essentiels pour le fonctionnement du site (panier, préférences) uniquement.
+          Actuellement, <strong>nous n'utilisons pas de cookies d'analytique ou de marketing</strong>.
+        </p>
+        <div class="cookie-banner__buttons">
+          <button class="cookie-btn cookie-btn--accept" id="acceptCookies" data-i18n="cookies_accept">Accepter tout</button>
+          <button class="cookie-btn cookie-btn--decline" id="declineCookies" data-i18n="cookies_reject">Refuser</button>
+        </div>
+      </div>
+
+      <div class="cookie-info animate-on-scroll" style="margin-top: var(--space-8);">
+        <h3><i class="fas fa-info-circle" style="color: var(--color-accent); margin-right: var(--space-2);"></i> <span data-i18n="cookies_what_title">Que sont les cookies ?</span></h3>
+        <p data-i18n="cookies_what_desc">Les cookies sont de petits fichiers texte stockés sur votre appareil (ordinateur, tablette, téléphone) lorsque vous naviguez sur un site web. Ils permettent au site de mémoriser vos préférences et actions.</p>
+
+        <h3><i class="fas fa-list" style="color: var(--color-accent); margin-right: var(--space-2);"></i> <span data-i18n="cookies_types_title">Types de cookies que nous utilisons</span></h3>
+        <ul>
+          <li><strong data-i18n="cookies_necessary_title">Cookies essentiels</strong> — <span data-i18n="cookies_necessary_desc">nécessaires au fonctionnement du site (panier d'achat, connexions)</span></li>
+          <li><strong data-i18n="cookies_preference_title">Cookies de préférence</strong> — <span data-i18n="cookies_preference_desc">stockent vos paramètres de navigation</span></li>
+        </ul>
+
+        <h3><i class="fas fa-chart-bar" style="color: var(--color-accent); margin-right: var(--space-2);"></i> <span data-i18n="cookies_analytics_title">Google Analytics (futur)</span></h3>
+        <p data-i18n="cookies_analytics_desc">À l'avenir, nous envisageons d'utiliser <strong>Google Analytics</strong> pour mieux comprendre comment les visiteurs utilisent notre site. Google Analytics collectera des données anonymes telles que :</p>
+        <ul>
+          <li data-i18n="cookies_analytics_pages">Pages visitées et temps passé</li>
+          <li data-i18n="cookies_analytics_geo">Origine géographique des visiteurs</li>
+          <li data-i18n="cookies_analytics_devices">Appareils et navigateurs utilisés</li>
+        </ul>
+
+        <div class="analytics-note">
+          <strong data-i18n="cookies_analytics_note">Note Google Analytics Free Tier : La version gratuite de Google Analytics permet jusqu'à 200 emails de rapports par mois. Cette limite concerne les rapports programmés envoyés par email, et non le nombre de visiteurs du site.</strong>
+        </div>
+
+        <h3><i class="fas fa-user-shield" style="color: var(--color-accent); margin-right: var(--space-2);"></i> <span data-i18n="cookies_choices_title">Vos choix</span></h3>
+        <p data-i18n="cookies_choices_desc">Vous pouvez à tout moment refuser les cookies non essentiels via les paramètres de votre navigateur. Cependant, cela peut affecter certaines fonctionnalités du site.</p>
+        <p><span data-i18n="cookies_choices_more">Pour plus d'informations sur vos droits et notre utilisation des données, consultez notre</span> <a href="privacy.html" data-i18n="cookies_privacy_link">Politique de confidentialité</a>.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__main">
+        <div class="footer__brand">
+          <div class="footer__logo">BEN<span class="accent">SHOP</span></div>
+          <p class="footer__tagline" data-i18n="footer_tagline">Vends des chaussettes fabriquées en Algérie avec passion — pour le confort, la durabilité et le style.</p>
+          <div class="footer__social">
+            <a href="https://www.facebook.com/profile.php?id=61574887031478" target="_blank" rel="noopener" class="footer__social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="footer__social-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="#" class="footer__social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div>
+          <div class="footer__nav-title" data-i18n="footer_nav">Navigation</div>
+          <div class="footer__nav-links">
+            <a href="index.html" class="footer__nav-link" data-i18n="nav_home">Accueil</a>
+            <a href="catalog.html" class="footer__nav-link" data-i18n="nav_catalog">Catalogue</a>
+            <a href="contact.html" class="footer__nav-link" data-i18n="nav_contact">Contact</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer__nav-title" data-i18n="footer_contact">Contact</div>
+          <div class="footer__contact-item"><i class="fas fa-phone footer__contact-icon"></i><span>035 74 98 98</span></div>
+          <div class="footer__contact-item"><i class="fab fa-whatsapp footer__contact-icon"></i><span>0772 26 84 27 <small style="font-size:10px;opacity:0.7" data-i18n="footer_wholesale">(gros)</small></span></div>
+          <div class="footer__contact-item"><i class="fas fa-mobile-screen footer__contact-icon"></i><span>0557 81 18 85 <small style="font-size:10px;opacity:0.7" data-i18n="footer_orders_label">(commandes)</small></span></div>
+          <div class="footer__contact-item"><i class="fas fa-location-dot footer__contact-icon"></i><span data-i18n="footer_address">Bordj Bou Arreridj, Algérie</span></div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span class="footer__copyright" data-i18n="footer_copyright">&copy; 2026 BENSHOP Chaussettes. Tous droits réservés.</span>
+        <div class="footer__links">
+          <a href="privacy.html" class="footer__link" data-i18n="footer_privacy">Politique de confidentialité</a>
+          <a href="terms.html" class="footer__link" data-i18n="footer_terms">Conditions de vente</a>
+          <a href="contact.html" class="footer__link" data-i18n="nav_contact">Contact</a>
+        </div>
+      </div>
+      <div class="footer__legal">
+        <a href="privacy.html" data-i18n="footer_privacy">Politique de confidentialité</a>
+        <span>|</span>
+        <a href="cookies.html" data-i18n="footer_cookies">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SEARCH MODAL -->
+  <div class="modal-overlay" id="searchModal">
+    <div class="modal search-modal">
+      <div class="modal__header">
+        <h3 class="modal__title" data-i18n="search_title">Rechercher</h3>
+        <button class="modal__close" id="closeSearchBtn"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal__body">
+        <div class="search-input-wrapper">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" id="searchInput" data-i18n-ph="search_placeholder" placeholder="Rechercher... (Ctrl+K)" autocomplete="off">
+        </div>
+        <div class="search-results" id="searchResults"><div class="search-empty" data-i18n="search_empty">Commencez à taper pour rechercher.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART DRAWER -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart__header">
+      <h3 class="cart__title"><i class="fas fa-shopping-bag"></i> <span data-i18n="cart_title">Mon Panier</span></h3>
+      <button class="cart__close" id="closeCartBtn"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart__body" id="cartItems"><div class="cart__empty" data-i18n="cart_empty">Votre panier est vide.</div></div>
+    <div class="cart__footer" id="cartFooter" style="display: none;">
+      <div class="cart__summary">
+        <div class="cart__summary-row"><span data-i18n="cart_subtotal">Sous-total</span><span id="cartSubtotal">0 <span data-i18n="currency">DA</span></span></div>
+        <div class="cart__summary-row"><span data-i18n="cart_delivery">Livraison</span><span id="cartDeliveryVal" data-i18n="cart_delivery_calc">Calculée à la caisse</span></div>
+        <div class="cart__summary-row cart__summary-total"><span data-i18n="cart_total">Total</span><span id="cartTotal">0 <span data-i18n="currency">DA</span></span></div>
+      </div>
+      <div class="checkout-form" id="checkoutForm" style="display: none;">
+        <input type="text" id="orderName" data-i18n-ph="checkout_name_ph" placeholder="Nom complet" style="width:100%;padding:var(--space-3);border:1.5px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-body);font-size:var(--font-size-sm);margin-bottom:var(--space-3);outline:none;">
+        <input type="tel" id="orderPhone" data-i18n-ph="checkout_phone" placeholder="Téléphone" style="width:100%;padding:var(--space-3);border:1.5px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-body);font-size:var(--font-size-sm);margin-bottom:var(--space-3);outline:none;">
+        <select id="orderWilaya" style="width:100%;padding:var(--space-3);border:1.5px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-body);font-size:var(--font-size-sm);margin-bottom:var(--space-3);outline:none;background:var(--color-surface);"><option value="" data-i18n="checkout_wilaya">Sélectionnez la wilaya</option></select>
+        <div id="communeWrapper" style="display:none;"><select id="orderCommune" style="width:100%;padding:var(--space-3);border:1.5px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-body);font-size:var(--font-size-sm);margin-bottom:var(--space-3);outline:none;background:var(--color-surface);"><option value="" data-i18n="checkout_commune_ph">Sélectionnez la commune</option></select></div>
+        <select id="orderDelivery" style="width:100%;padding:var(--space-3);border:1.5px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-body);font-size:var(--font-size-sm);margin-bottom:var(--space-3);outline:none;background:var(--color-surface);">
+          <option value="domicile" data-i18n="checkout_delivery_home">Livraison à domicile</option>
+          <option value="bureau" data-i18n="checkout_delivery_office">Bureau de livraison</option>
+        </select>
+        <textarea id="orderAddress" data-i18n-ph="checkout_address_ph" placeholder="Adresse complète de livraison" rows="2" style="width:100%;padding:var(--space-3);border:1.5px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-body);font-size:var(--font-size-sm);margin-bottom:var(--space-3);outline:none;resize:vertical;"></textarea>
+        <input type="email" id="orderEmail" data-i18n-ph="checkout_email" placeholder="Email (optionnel)" style="width:100%;padding:var(--space-3);border:1.5px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-body);font-size:var(--font-size-sm);margin-bottom:var(--space-3);outline:none;">
+        <textarea id="orderComment" data-i18n-ph="checkout_comment" placeholder="Commentaire (optionnel)" rows="3" style="width:100%;padding:var(--space-3);border:1.5px solid var(--color-border);border-radius:var(--radius-md);font-family:var(--font-body);font-size:var(--font-size-sm);margin-bottom:var(--space-3);outline:none;resize:vertical;"></textarea>
+      </div>
+      <button class="cart__whatsapp-btn" id="whatsappOrderBtn" style="display:none;background:#25D366;color:#FFF;border:none;padding:var(--space-3) var(--space-6);border-radius:var(--radius-md);font-family:var(--font-body);font-size:var(--font-size-sm);font-weight:600;cursor:pointer;width:100%;margin-bottom:var(--space-2);"><i class="fab fa-whatsapp"></i> <span data-i18n="cart_whatsapp">Commander via WhatsApp</span></button>
+      <button class="cart__checkout-btn" id="checkoutBtn" data-i18n="cart_checkout">Passer la commande</button>
+      <button class="cart__confirm-btn" id="confirmOrderBtn" style="display: none;" data-i18n="cart_confirm">Confirmer la commande</button>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="analytics.js"></script>
+  <script src="translations.js"></script>
+  <script src="api.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // Cookie consent handling
+    document.getElementById('acceptCookies').addEventListener('click', function() {
+      localStorage.setItem('benshop_cookie_consent', 'accepted');
+      window.location.href = 'index.html';
+    });
+    document.getElementById('declineCookies').addEventListener('click', function() {
+      localStorage.setItem('benshop_cookie_consent', 'declined');
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

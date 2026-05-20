@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page introuvable | BENSHOP</title>
+  <meta name="robots" content="noindex, follow">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧦</text></svg>">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    .not-found { min-height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: var(--space-8); }
+    .not-found__icon { font-size: 5rem; color: var(--color-accent); margin-bottom: var(--space-6); }
+    .not-found__title { font-family: var(--font-display); font-size: var(--font-size-4xl); font-weight: 800; margin-bottom: var(--space-4); }
+    .not-found__text { font-size: var(--font-size-lg); color: var(--color-text-secondary); margin-bottom: var(--space-8); max-width: 500px; }
+    .not-found__btn { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-8); background: var(--color-accent); color: #FFF; border-radius: var(--radius-full); font-family: var(--font-body); font-weight: 600; font-size: var(--font-size-base); text-decoration: none; transition: background var(--transition); }
+    .not-found__btn:hover { background: var(--color-accent-hover); }
+  </style>
+</head>
+<body>
+  <div class="not-found">
+    <div>
+      <div class="not-found__icon"><i class="fas fa-socks"></i></div>
+      <h1 class="not-found__title">404</h1>
+      <p class="not-found__text" data-i18n="not_found_text">Oups ! Cette page n'existe pas ou a été déplacée.</p>
+      <a href="index.html" class="not-found__btn"><i class="fas fa-home"></i> <span data-i18n="not_found_home">Retour à l'accueil</span></a>
+    </div>
+  </div>
+  <script src="translations.js"></script>
+  <script>
+    const translations = { fr: { not_found_text: 'Oups ! Cette page n\'existe pas ou a été déplacée.', not_found_home: 'Retour à l\'accueil', page_title_404: '404 — Page introuvable | BENSHOP' }, en: { not_found_text: 'Oops! This page doesn\'t exist or has been moved.', not_found_home: 'Back to home', page_title_404: '404 — Page Not Found | BENSHOP' }, ar: { not_found_text: 'عذراً! هذه الصفحة غير موجودة أو تم نقلها.', not_found_home: 'العودة للرئيسية', page_title_404: '404 — الصفحة غير موجودة | بن شوب' } };
+    const lang = localStorage.getItem('benshop_lang') || 'ar';
+    const t = key => (translations[lang] && translations[lang][key]) || translations.ar[key] || key;
+    document.querySelectorAll('[data-i18n]').forEach(el => { const key = el.getAttribute('data-i18n'); const val = t(key); if (val && val !== key) el.textContent = val; });
+    document.title = t('page_title_404');
+    if (lang === 'ar') { document.documentElement.dir = 'rtl'; document.documentElement.lang = 'ar'; } else { document.documentElement.lang = lang; }
+  </script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administration — BENSHOP Chaussettes</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧦</text></svg>">
+  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div id="loginScreen" class="login-screen">
+    <div class="login-card">
+      <div class="login-logo">BEN<span class="accent">SHOP</span></div>
+      <div class="login-subtitle" data-i18n="admin_subtitle">Administration</div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginEmail" data-i18n="login_email_label">Email</label>
+          <input type="email" id="loginEmail" data-i18n-ph="login_email_ph" placeholder="admin@benshop.dz" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword" data-i18n="login_password_label">Mot de passe</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" required>
+        </div>
+        <div id="loginError" class="error-message" style="display:none;"></div>
+        <button type="submit" class="btn btn-primary btn-block" id="loginBtn" data-i18n="login_btn">Se connecter</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="appScreen" style="display:none;">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">BEN<span class="accent">SHOP</span></div>
+        <div class="sidebar-sub" data-i18n="sidebar_admin">Admin</div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#/" class="sidebar-link active" data-page="dashboard"><i class="fas fa-chart-pie"></i> <span data-i18n="nav_dashboard">Tableau de bord</span></a>
+        <a href="#/products" class="sidebar-link" data-page="products"><i class="fas fa-box"></i> <span data-i18n="nav_products">Produits</span></a>
+        <a href="#/families" class="sidebar-link" data-page="families"><i class="fas fa-tags"></i> <span data-i18n="nav_families">Familles</span></a>
+        <a href="#/orders" class="sidebar-link" data-page="orders"><i class="fas fa-shopping-bag"></i> <span data-i18n="nav_orders">Commandes</span></a>
+        <a href="#/messages" class="sidebar-link" data-page="messages"><i class="fas fa-envelope"></i> <span data-i18n="nav_messages">Messages</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="/" class="sidebar-link"><i class="fas fa-external-link-alt"></i> <span data-i18n="nav_view_site">Voir le site</span></a>
+        <button class="sidebar-link" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> <span data-i18n="nav_logout">Déconnexion</span></button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="topbar-toggle" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+        <h1 class="topbar-title" id="pageTitle" data-i18n="dashboard_title">Tableau de bord</h1>
+        <div class="topbar-actions">
+          <div class="lang-switcher">
+            <button class="lang-btn" id="adminLangToggle" style="font-size:0.7rem;padding:3px 8px;">FR</button>
+            <div class="lang-dropdown" id="adminLangDropdown">
+              <button data-lang="fr">Français</button>
+              <button data-lang="en">English</button>
+              <button data-lang="ar">العربية</button>
+            </div>
+          </div>
+          <span id="adminName" class="admin-name"></span>
+        </div>
+      </header>
+
+      <div class="content-area" id="contentArea">
+        <!-- Pages rendered here -->
+      </div>
+    </main>
+  </div>
+
+  <!-- PRODUCT MODAL -->
+  <div class="modal-overlay" id="productModal" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="productModalTitle" data-i18n="modal_add_product">Ajouter un produit</h3>
+        <button class="modal-close" id="closeProductModal"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <form id="productForm">
+          <input type="hidden" id="productEditId">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="prodId" data-i18n="label_product_id">ID du produit</label>
+              <input type="text" id="prodId" data-i18n-ph="ph_product_id" placeholder="prod_nouveau_1" required>
+            </div>
+            <div class="form-group">
+              <label for="prodCategory" data-i18n="label_category">Catégorie</label>
+              <select id="prodCategory" required>
+                <option value="homme" data-i18n="cat_homme">Homme</option>
+                <option value="femme" data-i18n="cat_femme">Femme</option>
+                <option value="enfants" data-i18n="cat_enfants">Enfants</option>
+                <option value="autres" data-i18n="cat_autres">Autres</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="prodFamily" data-i18n="label_family">Famille</label>
+              <select id="prodFamily">
+                <option value="" data-i18n="ph_family_none">-- Aucune --</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="prodName" data-i18n="label_product_name">Nom du produit</label>
+            <input type="text" id="prodName" data-i18n-ph="ph_product_name" placeholder="Chaussettes Classiques" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="prodPrice" data-i18n="label_price">Prix (DA)</label>
+              <input type="number" id="prodPrice" placeholder="350" required>
+            </div>
+            <div class="form-group">
+              <label for="prodOldPrice" data-i18n="label_old_price">Ancien prix (DA)</label>
+              <input type="number" id="prodOldPrice" data-i18n-ph="ph_old_price" placeholder="Laisser vide si pas de promo">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="prodBadge" data-i18n="label_badge">Badge</label>
+              <select id="prodBadge">
+                <option value="" data-i18n="badge_none">Aucun</option>
+                <option value="Populaire" data-i18n="badge_populaire">Populaire</option>
+                <option value="Nouveau" data-i18n="badge_nouveau">Nouveau</option>
+                <option value="Promo" data-i18n="badge_promo">Promo</option>
+                <option value="Hiver" data-i18n="badge_hiver">Hiver</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="prodStock" data-i18n="label_stock">Stock</label>
+              <input type="number" id="prodStock" value="100">
+            </div>
+          </div>
+          <div class="form-group">
+            <label data-i18n="label_images">Images du produit</label>
+            <div class="image-gallery" id="imageGallery"></div>
+            <div class="image-upload-area">
+              <label class="image-upload-label" for="prodImageFile">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span data-i18n="label_upload_image">Choisir une image</span>
+              </label>
+              <input type="file" id="prodImageFile" accept="image/jpeg,image/png,image/webp,image/gif" style="display:none;" multiple>
+            </div>
+            <input type="hidden" id="prodImage" value="">
+          </div>
+          <div class="form-group">
+            <label for="prodDescription" data-i18n="label_description">Description</label>
+            <textarea id="prodDescription" rows="3" data-i18n-ph="ph_description" placeholder="Description du produit..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" id="productSubmitBtn" data-i18n="btn_save">Enregistrer</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDER DETAIL MODAL -->
+  <div class="modal-overlay" id="orderModal" style="display:none;">
+    <div class="modal-card modal-card-lg">
+      <div class="modal-header">
+        <h3><span data-i18n="order_detail_title">Détail de la commande</span> <span id="orderModalId"></span></h3>
+        <button class="modal-close" id="closeOrderModal"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body" id="orderModalBody">
+        <!-- Order details rendered here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- FAMILY MODAL -->
+  <div class="modal-overlay" id="familyModal" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="familyModalTitle" data-i18n="modal_add_family">Ajouter une famille</h3>
+        <button class="modal-close" id="closeFamilyModal"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <form id="familyForm">
+          <input type="hidden" id="familyEditId">
+          <div class="form-group">
+            <label for="familyId" data-i18n="label_family_id">ID (slug)</label>
+            <input type="text" id="familyId" data-i18n-ph="ph_family_id" placeholder="ex: classique_coton" required>
+          </div>
+          <div class="form-group">
+            <label for="familyLabel" data-i18n="label_family_label">Libellé</label>
+            <input type="text" id="familyLabel" data-i18n-ph="ph_family_label" placeholder="ex: Coton" required>
+          </div>
+          <div class="form-group">
+            <label for="familyOrder" data-i18n="label_family_order">Ordre</label>
+            <input type="number" id="familyOrder" value="0" min="0">
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" id="familySubmitBtn" data-i18n="btn_save">Enregistrer</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="translations.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
