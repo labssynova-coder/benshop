@@ -702,6 +702,7 @@ input, textarea, select {
   transition: transform var(--duration-slow) var(--ease-out),
               box-shadow var(--duration-slow) var(--ease-out),
               border-color var(--duration-base);
+  contain: layout style;
 }
 
 .product-card:hover {
