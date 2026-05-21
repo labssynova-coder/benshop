@@ -2,6 +2,8 @@
 
 > E-commerce website for **SARL BENSHOP Chaussettes** — a premium sock manufacturer based in Bordj Bou Arreridj, Algeria. Serves the Algerian market with cash-on-delivery shipping across all 58 wilayas.
 
+**[Live Demo](https://labssynova-coder.github.io/benshop/)** — Browse the storefront with products, cart, search, and multilingual support. No server required.
+
 ---
 
 ## Features
@@ -168,6 +170,19 @@ npm run dev
 # Re-seed the database
 npm run seed
 ```
+
+### GitHub Pages Demo (Frontend Only)
+
+The frontend works as a static demo on GitHub Pages using built-in fallback data (12 products, cart, search, multilingual). The admin panel requires a server and is not available on the static demo.
+
+To enable it:
+1. Go to **Settings > Pages** in the GitHub repo
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**
+3. Push to `main` — the workflow at `.github/workflows/deploy-pages.yml` deploys the `public/` folder automatically
+
+The demo will be available at `https://<username>.github.io/benshop/`.
+
+**Limitations of the static demo:** Order placement, delivery fee calculation, and contact form submission require the backend server.
 
 ---
 
