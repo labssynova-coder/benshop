@@ -17,6 +17,12 @@ const adminTranslations = {
     login_error_generic: 'Erreur de connexion',
     server_error: 'Erreur serveur',
 
+    // Demo mode
+    demo_banner: 'Mode démo — les modifications ne sont pas enregistrées',
+    demo_toast_saved: 'Démo : modification simulée (non enregistrée)',
+    demo_upload_disabled: 'Démo : le téléchargement d\'images n\'est pas disponible',
+    demo_export_disabled: 'Démo : l\'export CSV n\'est pas disponible',
+
     // Sidebar
     sidebar_admin: 'Admin',
     nav_dashboard: 'Tableau de bord',
@@ -194,6 +200,12 @@ const adminTranslations = {
     login_error_generic: 'Connection error',
     server_error: 'Server error',
 
+    // Demo mode
+    demo_banner: 'Demo mode — changes are not saved',
+    demo_toast_saved: 'Demo: change simulated (not saved)',
+    demo_upload_disabled: 'Demo: image upload is not available',
+    demo_export_disabled: 'Demo: CSV export is not available',
+
     // Sidebar
     sidebar_admin: 'Admin',
     nav_dashboard: 'Dashboard',
@@ -370,6 +382,12 @@ const adminTranslations = {
     login_error_server: 'خطأ في الاتصال بالخادم.',
     login_error_generic: 'خطأ في الاتصال',
     server_error: 'خطأ في الخادم',
+
+    // Demo mode
+    demo_banner: 'وضع العرض — لا يتم حفظ التعديلات',
+    demo_toast_saved: 'عرض: تم محاكاة التعديل (غير محفوظ)',
+    demo_upload_disabled: 'عرض: تحميل الصور غير متاح',
+    demo_export_disabled: 'عرض: تصدير CSV غير متاح',
 
     // Sidebar
     sidebar_admin: 'مسؤول',

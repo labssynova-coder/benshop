@@ -4,6 +4,164 @@
 
 const API = '/api/admin';
 
+// ==========================================
+// DEMO MODE (static hosting fallback)
+// ==========================================
+let DEMO_MODE = false;
+let DEMO_INITIALIZED = false;
+
+const DEMO_ADMIN = { name: 'Demo Admin', email: 'demo@benshop.dz', role: 'admin' };
+
+const DEMO_DATA = {
+  dashboard: {
+    stats: { totalOrders: 47, totalRevenue: 285600, pendingOrders: 8, unreadMessages: 3 },
+    recentOrders: [
+      { id: 'ORD-MP9J6E25', customer_name: 'Karim Benali', customer_wilaya: 'Algiers', total: 4800, status: 'pending', created_at: '2026-05-20T14:30:00Z' },
+      { id: 'ORD-KT3R8N17', customer_name: 'Amina Hadj', customer_wilaya: 'Oran', total: 3200, status: 'confirmed', created_at: '2026-05-19T10:15:00Z' },
+      { id: 'ORD-PW5X2V44', customer_name: 'Youcef Mesbah', customer_wilaya: 'Constantine', total: 5600, status: 'shipped', created_at: '2026-05-18T16:45:00Z' },
+      { id: 'ORD-LQ8F9H33', customer_name: 'Fatima Zeroual', customer_wilaya: 'Sétif', total: 2400, status: 'delivered', created_at: '2026-05-17T09:00:00Z' },
+      { id: 'ORD-RJ2M7W61', customer_name: 'Nabil Khelfi', customer_wilaya: 'Bordj Bou Arreridj', total: 7200, status: 'cancelled', created_at: '2026-05-16T11:20:00Z' },
+    ],
+    topProducts: [
+      { product_name: 'Pack Sport Premium', total_sold: 34, revenue: 40800 },
+      { product_name: 'Classique Coton Homme', total_sold: 28, revenue: 14000 },
+      { product_name: 'Invisible Femme', total_sold: 22, revenue: 8800 },
+    ]
+  },
+  products: [
+    { id: 'prod_classique_1', name: 'Classique Coton Homme', category: 'homme', price: 500, old_price: null, image: 'assets/images/prod-classique.png', stock: 150, is_active: 1, badge: 'Populaire', description: 'Chaussettes classiques en coton pour homme', family: 'classique_coton', images: ['assets/images/prod-classique.png'] },
+    { id: 'prod_sport_1', name: 'Pack Sport Premium', category: 'homme', price: 1200, old_price: 1500, image: 'assets/images/prod-sport.png', stock: 80, is_active: 1, badge: 'Nouveau', description: 'Pack de chaussettes sport techniques', family: 'sport', images: ['assets/images/prod-sport.png'] },
+    { id: 'prod_invisible_1', name: 'Invisible Femme', category: 'femme', price: 400, old_price: null, image: 'assets/images/prod-invisible.png', stock: 200, is_active: 1, badge: null, description: 'Chaussettes invisibles pour femme', family: 'invisible', images: ['assets/images/prod-invisible.png'] },
+    { id: 'prod_mollet_1', name: 'Mi-Mollet Enfant', category: 'enfants', price: 350, old_price: null, image: 'assets/images/prod-mollet.png', stock: 120, is_active: 1, badge: null, description: 'Chaussettes mi-mollet pour enfants', family: 'mi_mollet', images: ['assets/images/prod-mollet.png'] },
+    { id: 'promo_pack_1', name: 'Pack Promo Mixte', category: 'autres', price: 1800, old_price: 2400, image: 'assets/images/prod-pack.png', stock: 45, is_active: 1, badge: 'Promo', description: 'Pack promotionnel mixte', family: 'classique_coton', images: ['assets/images/prod-pack.png'] },
+    { id: 'prod_hiver_1', name: 'Hiver Laine Homme', category: 'homme', price: 800, old_price: null, image: 'assets/images/prod-classique.png', stock: 0, is_active: 0, badge: 'Hiver', description: 'Chaussettes hiver en laine', family: 'classique_coton', images: ['assets/images/prod-classique.png'] },
+  ],
+  orders: {
+    orders: [
+      { id: 'ORD-MP9J6E25', customer_name: 'Karim Benali', customer_phone: '0555123456', customer_wilaya: 'Algiers', total: 4800, status: 'pending', created_at: '2026-05-20T14:30:00Z' },
+      { id: 'ORD-KT3R8N17', customer_name: 'Amina Hadj', customer_phone: '0667788990', customer_wilaya: 'Oran', total: 3200, status: 'confirmed', created_at: '2026-05-19T10:15:00Z' },
+      { id: 'ORD-PW5X2V44', customer_name: 'Youcef Mesbah', customer_phone: '0778901234', customer_wilaya: 'Constantine', total: 5600, status: 'shipped', created_at: '2026-05-18T16:45:00Z' },
+      { id: 'ORD-LQ8F9H33', customer_name: 'Fatima Zeroual', customer_phone: '0544567890', customer_wilaya: 'Sétif', total: 2400, status: 'delivered', created_at: '2026-05-17T09:00:00Z' },
+      { id: 'ORD-RJ2M7W61', customer_name: 'Nabil Khelfi', customer_phone: '0699887766', customer_wilaya: 'Bordj Bou Arreridj', total: 7200, status: 'cancelled', created_at: '2026-05-16T11:20:00Z' },
+      { id: 'ORD-TX4B1Y88', customer_name: 'Samia Bouzid', customer_phone: '0533221100', customer_wilaya: 'Béjaïa', total: 1600, status: 'pending', created_at: '2026-05-15T13:05:00Z' },
+    ]
+  },
+  orderDetail: {
+    id: 'ORD-MP9J6E25', customer_name: 'Karim Benali', customer_phone: '0555123456', customer_wilaya: 'Algiers', customer_address: '12 Rue Didouche Mourad', customer_commune: 'Alger Centre', delivery_type: 'domicile', total: 4800, delivery_fee: 400, status: 'pending', created_at: '2026-05-20T14:30:00Z',
+    items: [
+      { product_name: 'Pack Sport Premium', quantity: 2, product_price: 1200 },
+      { product_name: 'Classique Coton Homme', quantity: 4, product_price: 500 },
+    ]
+  },
+  messages: [
+    { id: 'msg_1', name: 'Samira Bouzid', email: 'samira@example.com', message: 'Bonjour, je souhaite commander en gros pour ma boutique à Oran. Quels sont vos tarifs de gros ?', created_at: '2026-05-20T08:30:00Z', is_read: false },
+    { id: 'msg_2', name: 'Karim Benali', email: 'karim@example.com', message: 'Merci pour la livraison rapide ! Les chaussettes sont de très bonne qualité.', created_at: '2026-05-19T15:10:00Z', is_read: true },
+    { id: 'msg_3', name: 'Amina Hadj', email: 'amina@example.com', message: 'Est-ce que vous livrez à Tlemcen ? Et quel est le délai de livraison ?', created_at: '2026-05-18T09:45:00Z', is_read: false },
+    { id: 'msg_4', name: 'Youcef Mesbah', email: 'youcef@example.com', message: 'Je n\'ai pas reçu ma commande ORD-PW5X2V44. Pouvez-vous vérifier ?', created_at: '2026-05-17T14:20:00Z', is_read: true },
+  ],
+  families: [
+    { id: 'classique_coton', label: 'Coton', sort_order: 1 },
+    { id: 'invisible', label: 'Invisible', sort_order: 2 },
+    { id: 'sport', label: 'Sport', sort_order: 3 },
+    { id: 'mi_mollet', label: 'Mi-Mollet', sort_order: 4 },
+    { id: 'hiver', label: 'Hiver', sort_order: 5 },
+  ]
+};
+
+function demoApiFetch(path, options = {}) {
+  const method = (options.method || 'GET').toUpperCase();
+  const isWrite = method !== 'GET' && method !== 'HEAD';
+
+  // Handle write operations — simulate locally
+  if (isWrite) {
+    showToast(ta('demo_toast_saved') || 'Demo: change simulated (not persisted)', 'success');
+    if (method === 'PUT' && path.match(/^\/orders\/[^/]+\/status$/)) {
+      const status = JSON.parse(options.body).status;
+      const orderId = path.split('/')[2];
+      const order = DEMO_DATA.orders.orders.find(o => o.id === orderId);
+      if (order) order.status = status;
+    }
+    if (method === 'PUT' && path.match(/^\/products\//) && !path.includes('/image') && !path.includes('/status')) {
+      const id = path.split('/')[2];
+      const product = DEMO_DATA.products.find(p => p.id === id);
+      if (product) Object.assign(product, JSON.parse(options.body));
+    }
+    if (method === 'PUT' && path.match(/^\/contact\//)) {
+      const id = path.split('/')[2];
+      const msg = DEMO_DATA.messages.find(m => m.id === id);
+      if (msg) msg.is_read = true;
+    }
+    if (method === 'DELETE' && path.match(/^\/products\//)) {
+      const id = path.includes('/permanent') ? path.split('/')[2] : path.split('/')[2];
+      DEMO_DATA.products = DEMO_DATA.products.filter(p => p.id !== id);
+    }
+    if (method === 'DELETE' && path.match(/^\/contact\//)) {
+      const id = path.split('/')[2];
+      DEMO_DATA.messages = DEMO_DATA.messages.filter(m => m.id !== id);
+    }
+    if (method === 'DELETE' && path.match(/^\/families\//)) {
+      const id = decodeURIComponent(path.split('/')[2]);
+      DEMO_DATA.families = DEMO_DATA.families.filter(f => f.id !== id);
+    }
+    if (method === 'POST' && path === '/products') {
+      const data = JSON.parse(options.body);
+      data.is_active = 1;
+      DEMO_DATA.products.push(data);
+    }
+    if (method === 'POST' && path === '/families') {
+      const data = JSON.parse(options.body);
+      DEMO_DATA.families.push(data);
+    }
+    return Promise.resolve({ success: true });
+  }
+
+  // Handle read operations — return mock data
+  if (path === '/dashboard') return Promise.resolve(DEMO_DATA.dashboard);
+  if (path === '/products') return Promise.resolve(DEMO_DATA.products);
+  if (path.match(/^\/products\//)) {
+    const id = path.split('/')[2];
+    if (path.includes('/image')) return Promise.resolve({ success: true });
+    const product = DEMO_DATA.products.find(p => p.id === id);
+    return Promise.resolve(product || null);
+  }
+  if (path.startsWith('/orders')) {
+    if (path.match(/^\/orders\/[^/]+$/)) {
+      const id = path.split('/')[2];
+      return Promise.resolve({ ...DEMO_DATA.orderDetail, id });
+    }
+    const urlParams = new URLSearchParams(path.includes('?') ? path.split('?')[1] : '');
+    const statusFilter = urlParams.get('status');
+    let orders = DEMO_DATA.orders.orders;
+    if (statusFilter) orders = orders.filter(o => o.status === statusFilter);
+    return Promise.resolve({ orders });
+  }
+  if (path === '/contact') return Promise.resolve(DEMO_DATA.messages);
+  if (path.match(/^\/contact\//)) {
+    const id = path.split('/')[2];
+    const msg = DEMO_DATA.messages.find(m => m.id === id);
+    return Promise.resolve(msg || null);
+  }
+  if (path === '/families') return Promise.resolve(DEMO_DATA.families);
+
+  return Promise.resolve(null);
+}
+
+async function detectDemoMode() {
+  try {
+    const res = await fetch('/api/health', { method: 'GET', signal: AbortSignal.timeout(3000) });
+    DEMO_MODE = !res.ok;
+  } catch {
+    DEMO_MODE = true;
+  }
+  if (DEMO_MODE) {
+    document.getElementById('demoBanner')?.classList.add('visible');
+    token = 'demo-token';
+    admin = DEMO_ADMIN;
+    DEMO_INITIALIZED = true;
+  }
+  return DEMO_MODE;
+}
+
 function locale() { return adminLang === 'ar' ? 'ar-DZ' : adminLang === 'en' ? 'en-US' : 'fr-FR'; }
 let token = null;
 localStorage.removeItem('benshop_admin_token');
@@ -73,6 +231,7 @@ window.addEventListener('hashchange', renderPage);
 // API HELPER
 // ==========================================
 async function apiFetch(path, options = {}) {
+  if (DEMO_MODE) return demoApiFetch(path, options);
   const headers = {};
   if (options.body) headers['Content-Type'] = 'application/json';
   if (token) headers['Authorization'] = `Bearer ${token}`;
@@ -110,6 +269,14 @@ const loginScreen = document.getElementById('loginScreen');
 const appScreen = document.getElementById('appScreen');
 
 async function checkAuth() {
+  if (DEMO_MODE) {
+    loginScreen.style.display = 'none';
+    appScreen.style.display = 'flex';
+    document.getElementById('adminName').textContent = admin.name || admin.email;
+    renderPage();
+    return;
+  }
+
   if (admin && admin.role === 'admin') {
     try {
       const res = await fetch('/api/auth/me', { credentials: 'same-origin' });
@@ -146,6 +313,12 @@ async function checkAuth() {
 if (loginForm) {
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (DEMO_MODE) {
+      admin = DEMO_ADMIN;
+      token = 'demo-token';
+      checkAuth();
+      return;
+    }
     const email = document.getElementById('loginEmail').value.trim();
     const password = document.getElementById('loginPassword').value;
     const errorEl = document.getElementById('loginError');
@@ -467,6 +640,10 @@ document.getElementById('prodImageFile')?.addEventListener('change', async funct
   if (editId) {
     // Existing product — upload directly
     for (const file of files) {
+      if (DEMO_MODE) {
+        showToast(ta('demo_upload_disabled') || 'Demo: image upload is not available', 'error');
+        continue;
+      }
       const formData = new FormData();
       formData.append('image', file);
       try {
@@ -548,6 +725,7 @@ function renderPendingImageGallery() {
 }
 
 async function uploadPendingImages(productId) {
+  if (DEMO_MODE) return;
   for (const pending of pendingImageFiles) {
     const formData = new FormData();
     formData.append('image', pending.file);
@@ -764,6 +942,10 @@ async function updateOrderStatus(orderId, status) {
 // MESSAGES
 // ==========================================
 async function exportOrdersCSV() {
+  if (DEMO_MODE) {
+    showToast(ta('demo_export_disabled') || 'Demo: CSV export is not available', 'error');
+    return;
+  }
   try {
     const res = await fetch('/api/admin/orders/export', {
       credentials: 'same-origin'
@@ -996,4 +1178,4 @@ async function populateFamilySelect() {
 // ==========================================
 // INITIALIZE
 // ==========================================
-checkAuth();
+detectDemoMode().then(() => checkAuth());

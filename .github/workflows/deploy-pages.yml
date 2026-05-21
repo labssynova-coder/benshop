@@ -1,4 +1,4 @@
-name: Deploy Frontend Demo to GitHub Pages
+name: Deploy Demo to GitHub Pages
 
 on:
   push:
@@ -23,6 +23,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Assemble site
+        run: |
+          mkdir -p _site/admin
+          cp -r public/* _site/
+          cp -r admin/* _site/admin/
+
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
@@ -30,7 +36,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: public
+          path: _site
 
       - name: Deploy to GitHub Pages
         id: deploy

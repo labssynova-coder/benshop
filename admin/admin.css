@@ -1,6 +1,23 @@
 /* ==========================================
    BENSHOP ADMIN — Dashboard Styles
    ========================================== */
+
+.demo-banner {
+  display: none;
+  background: #F59E0B;
+  color: #78350F;
+  text-align: center;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.demo-banner.visible {
+  display: block;
+}
+
 :root {
   --sidebar-width: 220px;
   --topbar-height: 64px;
