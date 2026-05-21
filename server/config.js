@@ -3,12 +3,12 @@ require('dotenv').config();
 const config = {
   port: process.env.PORT || 3000,
   nodeEnv: process.env.NODE_ENV || 'development',
-  jwtSecret: process.env.JWT_SECRET || 'change-me-in-production',
+  jwtSecret: process.env.JWT_SECRET,
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
-  adminEmail: process.env.ADMIN_EMAIL || 'admin@benshop.dz',
+  adminEmail: process.env.ADMIN_EMAIL || '',
   adminPassword: process.env.ADMIN_PASSWORD || '',
-  whatsappOrders: process.env.WHATSAPP_ORDERS || '213696409537',
-  whatsappWholesale: process.env.WHATSAPP_WHOLESALE || '213772268427',
+  whatsappOrders: process.env.WHATSAPP_ORDERS || '',
+  whatsappWholesale: process.env.WHATSAPP_WHOLESALE || '',
   dbPath: process.env.DB_PATH || './server/db/benshop.sqlite',
   uploadsDir: './public/uploads/products',
   corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:3000',
@@ -36,14 +36,10 @@ const config = {
   bcryptSaltRounds: 10,
 };
 
-// Warn if using default JWT secret in production
-if (config.nodeEnv === 'production' && config.jwtSecret === 'change-me-in-production') {
-  console.error('[FATAL] JWT_SECRET must be set in production. Set the JWT_SECRET environment variable.');
+// Require JWT_SECRET in all environments
+if (!config.jwtSecret) {
+  console.error('[FATAL] JWT_SECRET must be set. Add JWT_SECRET to your .env file.');
   process.exit(1);
-}
-
-if (config.nodeEnv !== 'production' && config.jwtSecret === 'change-me-in-production') {
-  console.warn('[WARN] Using default JWT secret. Set JWT_SECRET in .env for security.');
 }
 
 // Warn if admin password is not set

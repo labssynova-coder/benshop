@@ -12,8 +12,8 @@ function esc(str) {
 // ==========================================
 // CONFIGURATION — WHATSAPP NUMBERS (loaded from API)
 // ==========================================
-let WHATSAPP_ORDERS = '213696409537';
-let WHATSAPP_WHOLESALE = '213772268427';
+let WHATSAPP_ORDERS = '';
+let WHATSAPP_WHOLESALE = '';
 fetch('/api/config').then(r => r.json()).then(cfg => {
   WHATSAPP_ORDERS = cfg.whatsappOrders;
   WHATSAPP_WHOLESALE = cfg.whatsappWholesale;
@@ -23,7 +23,8 @@ fetch('/api/config').then(r => r.json()).then(cfg => {
     waBtn.href = `https://wa.me/${WHATSAPP_ORDERS}?text=${encodeURIComponent(t('wa_chat_msg'))}`;
   }
 }).catch(() => {
-  // API unavailable (e.g. GitHub Pages static demo) — fallback defaults already set
+  // API unavailable (e.g. GitHub Pages static demo)
+  // WhatsApp buttons will not work without server config
 });
 
 document.addEventListener('DOMContentLoaded', () => {

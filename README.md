@@ -154,10 +154,10 @@ The app runs at **http://localhost:3000** by default.
 | `NODE_ENV` | No | `development` | `production` enforces JWT secret |
 | `JWT_SECRET` | **Yes** | — | Random 64+ char string for JWT signing |
 | `JWT_EXPIRES_IN` | No | `7d` | JWT expiration |
-| `ADMIN_EMAIL` | No | `admin@benshop.dz` | Admin user email |
+| `ADMIN_EMAIL` | No | — | Admin user email |
 | `ADMIN_PASSWORD` | **Yes** | — | Admin user password (set before first `npm run seed`) |
-| `WHATSAPP_ORDERS` | No | `213696409537` | WhatsApp number for orders |
-| `WHATSAPP_WHOLESALE` | No | `213772268427` | WhatsApp number for wholesale |
+| `WHATSAPP_ORDERS` | **Yes** | — | WhatsApp number for orders |
+| `WHATSAPP_WHOLESALE` | No | — | WhatsApp number for wholesale |
 | `DB_PATH` | No | `./server/db/benshop.sqlite` | SQLite database file path |
 | `CORS_ORIGIN` | No | `http://localhost:3000` | Allowed CORS origin |
 

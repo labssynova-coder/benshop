@@ -40,3 +40,7 @@ coverage/
 .agent/
 .planning/
 .claude/
+
+# Demo/screenshot scripts (contain credentials)
+demo.js
+screenshot.js
