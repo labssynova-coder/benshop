@@ -29,12 +29,12 @@ const DEMO_DATA = {
     ]
   },
   products: [
-    { id: 'prod_classique_1', name: 'Classique Coton Homme', category: 'homme', price: 500, old_price: null, image: 'assets/images/prod-classique.png', stock: 150, is_active: 1, badge: 'Populaire', description: 'Chaussettes classiques en coton pour homme', family: 'classique_coton', images: ['assets/images/prod-classique.png'] },
+    { id: 'prod_classique_1', name: 'Classique Coton Homme', category: 'homme', price: 500, old_price: null, image: 'assets/images/prod-coton-gris.png', stock: 150, is_active: 1, badge: 'Populaire', description: 'Chaussettes classiques en coton pour homme', family: 'classique_coton', images: ['assets/images/prod-coton-gris.png'] },
     { id: 'prod_sport_1', name: 'Pack Sport Premium', category: 'homme', price: 1200, old_price: 1500, image: 'assets/images/prod-sport.png', stock: 80, is_active: 1, badge: 'Nouveau', description: 'Pack de chaussettes sport techniques', family: 'sport', images: ['assets/images/prod-sport.png'] },
     { id: 'prod_invisible_1', name: 'Invisible Femme', category: 'femme', price: 400, old_price: null, image: 'assets/images/prod-invisible.png', stock: 200, is_active: 1, badge: null, description: 'Chaussettes invisibles pour femme', family: 'invisible', images: ['assets/images/prod-invisible.png'] },
-    { id: 'prod_mollet_1', name: 'Mi-Mollet Enfant', category: 'enfants', price: 350, old_price: null, image: 'assets/images/prod-mollet.png', stock: 120, is_active: 1, badge: null, description: 'Chaussettes mi-mollet pour enfants', family: 'mi_mollet', images: ['assets/images/prod-mollet.png'] },
+    { id: 'prod_mollet_1', name: 'Mi-Mollet Enfant', category: 'enfants', price: 350, old_price: null, image: 'assets/images/prod-enfant-color.png', stock: 120, is_active: 1, badge: null, description: 'Chaussettes mi-mollet pour enfants', family: 'mi_mollet', images: ['assets/images/prod-enfant-color.png'] },
     { id: 'promo_pack_1', name: 'Pack Promo Mixte', category: 'autres', price: 1800, old_price: 2400, image: 'assets/images/prod-pack.png', stock: 45, is_active: 1, badge: 'Promo', description: 'Pack promotionnel mixte', family: 'classique_coton', images: ['assets/images/prod-pack.png'] },
-    { id: 'prod_hiver_1', name: 'Hiver Laine Homme', category: 'homme', price: 800, old_price: null, image: 'assets/images/prod-classique.png', stock: 0, is_active: 0, badge: 'Hiver', description: 'Chaussettes hiver en laine', family: 'classique_coton', images: ['assets/images/prod-classique.png'] },
+    { id: 'prod_hiver_1', name: 'Hiver Laine Homme', category: 'homme', price: 800, old_price: null, image: 'assets/images/prod-rayures.png', stock: 0, is_active: 0, badge: 'Hiver', description: 'Chaussettes hiver en laine', family: 'classique_coton', images: ['assets/images/prod-rayures.png'] },
   ],
   orders: {
     orders: [
@@ -91,7 +91,12 @@ function demoApiFetch(path, options = {}) {
       const msg = DEMO_DATA.messages.find(m => m.id === id);
       if (msg) msg.is_read = true;
     }
-    if (method === 'DELETE' && path.match(/^\/products\//)) {
+    if (method === 'PUT' && path.match(/^\/families\//)) {
+      const id = decodeURIComponent(path.split('/')[2]);
+      const family = DEMO_DATA.families.find(f => f.id === id);
+      if (family) Object.assign(family, JSON.parse(options.body));
+    }
+    if (method === 'DELETE' && path.match(/^\/products\//) && !path.includes('/images')) {
       const id = path.includes('/permanent') ? path.split('/')[2] : path.split('/')[2];
       DEMO_DATA.products = DEMO_DATA.products.filter(p => p.id !== id);
     }

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>404 — Page introuvable | BENSHOP</title>
   <meta name="robots" content="noindex, follow">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧦</text></svg>">
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="/index.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     .not-found { min-height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: var(--space-8); }
@@ -23,10 +23,10 @@
       <div class="not-found__icon"><i class="fas fa-socks"></i></div>
       <h1 class="not-found__title">404</h1>
       <p class="not-found__text" data-i18n="not_found_text">Oups ! Cette page n'existe pas ou a été déplacée.</p>
-      <a href="index.html" class="not-found__btn"><i class="fas fa-home"></i> <span data-i18n="not_found_home">Retour à l'accueil</span></a>
+      <a href="/" class="not-found__btn"><i class="fas fa-home"></i> <span data-i18n="not_found_home">Retour à l'accueil</span></a>
     </div>
   </div>
-  <script src="translations.js"></script>
+  <script src="/translations.js"></script>
   <script>
     const translations = { fr: { not_found_text: 'Oups ! Cette page n\'existe pas ou a été déplacée.', not_found_home: 'Retour à l\'accueil', page_title_404: '404 — Page introuvable | BENSHOP' }, en: { not_found_text: 'Oops! This page doesn\'t exist or has been moved.', not_found_home: 'Back to home', page_title_404: '404 — Page Not Found | BENSHOP' }, ar: { not_found_text: 'عذراً! هذه الصفحة غير موجودة أو تم نقلها.', not_found_home: 'العودة للرئيسية', page_title_404: '404 — الصفحة غير موجودة | بن شوب' } };
     const lang = localStorage.getItem('benshop_lang') || 'ar';

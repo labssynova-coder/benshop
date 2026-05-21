@@ -23,8 +23,9 @@ fetch('/api/config').then(r => r.json()).then(cfg => {
     waBtn.href = `https://wa.me/${WHATSAPP_ORDERS}?text=${encodeURIComponent(t('wa_chat_msg'))}`;
   }
 }).catch(() => {
-  // API unavailable (e.g. GitHub Pages static demo)
-  // WhatsApp buttons will not work without server config
+  // API unavailable (e.g. GitHub Pages static demo) — hide WhatsApp buttons
+  const waBtn = document.querySelector('.floating-whatsapp-btn');
+  if (waBtn) waBtn.style.display = 'none';
 });
 
 document.addEventListener('DOMContentLoaded', () => {
