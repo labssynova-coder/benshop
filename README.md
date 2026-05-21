@@ -2,7 +2,9 @@
 
 > E-commerce website for **SARL BENSHOP Chaussettes** — a premium sock manufacturer based in Bordj Bou Arreridj, Algeria. Serves the Algerian market with cash-on-delivery shipping across all 58 wilayas.
 
-**[Live Demo](https://labssynova-coder.github.io/benshop/)** — Browse the storefront with products, cart, search, and multilingual support. No server required.
+**[Live Demo — Storefront](https://labssynova-coder.github.io/benshop/)** — Browse products, cart, search, and multilingual support. No server required.
+
+**[Live Demo — Admin Panel](https://labssynova-coder.github.io/benshop/admin/)** — Full admin UI with sample data: dashboard, products, orders, messages, families. No login required.
 
 ---
 
