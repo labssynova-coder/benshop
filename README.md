@@ -307,4 +307,4 @@ The demo will be available at `https://<username>.github.io/benshop/`.
 
 ## License
 
-Private repository. All rights reserved by SARL BENSHOP Chaussettes.
+This project is licensed under the [GNU General Public License v3.0](LICENSE).
