@@ -213,24 +213,47 @@ npm run seed
 
 ## Screenshots
 
+### Multilingual — Homepage in 3 languages
+
+<table>
+<tr>
+<td><strong>Français</strong></td>
+<td><strong>English</strong></td>
+<td><strong>العربية (RTL)</strong></td>
+</tr>
+<tr>
+<td><img src="docs/demo/01-homepage.png" alt="Homepage FR" width="260"></td>
+<td><img src="docs/demo/02-homepage-english.png" alt="Homepage EN" width="260"></td>
+<td><img src="docs/demo/03-homepage-arabic.png" alt="Homepage AR" width="260"></td>
+</tr>
+</table>
+
 ### Customer Experience
 
 <table>
 <tr>
-<td><strong>Homepage</strong></td>
-<td><strong>Catalog</strong></td>
+<td><strong>Catalog — All</strong></td>
+<td><strong>Catalog — Filtered</strong></td>
 </tr>
 <tr>
-<td><img src="docs/screenshots/frontend-homepage.png" alt="Homepage" width="400"></td>
-<td><img src="docs/screenshots/frontend-catalog.png" alt="Catalog" width="400"></td>
+<td><img src="docs/demo/04-catalog-all.png" alt="Catalog" width="400"></td>
+<td><img src="docs/demo/05-catalog-femme.png" alt="Catalog Filtered" width="400"></td>
 </tr>
 <tr>
 <td><strong>Product Detail</strong></td>
-<td><strong>Cart & Checkout</strong></td>
+<td><strong>Cart Drawer</strong></td>
 </tr>
 <tr>
-<td><img src="docs/screenshots/frontend-product.png" alt="Product Detail" width="400"></td>
-<td><img src="docs/screenshots/frontend-cart.png" alt="Cart & Checkout" width="400"></td>
+<td><img src="docs/demo/07-product-detail.png" alt="Product Detail" width="400"></td>
+<td><img src="docs/demo/09-cart-drawer.png" alt="Cart Drawer" width="400"></td>
+</tr>
+<tr>
+<td><strong>Contact Page</strong></td>
+<td><strong>Search Modal</strong></td>
+</tr>
+<tr>
+<td><img src="docs/demo/11-contact.png" alt="Contact" width="400"></td>
+<td><img src="docs/demo/12-search-modal.png" alt="Search" width="400"></td>
 </tr>
 </table>
 
@@ -238,20 +261,28 @@ npm run seed
 
 <table>
 <tr>
+<td><strong>Login</strong></td>
 <td><strong>Dashboard</strong></td>
+</tr>
+<tr>
+<td><img src="docs/demo/13-admin-login.png" alt="Admin Login" width="400"></td>
+<td><img src="docs/demo/14-admin-dashboard.png" alt="Admin Dashboard" width="400"></td>
+</tr>
+<tr>
 <td><strong>Products</strong></td>
-</tr>
-<tr>
-<td><img src="docs/screenshots/admin-dashboard.png" alt="Admin Dashboard" width="400"></td>
-<td><img src="docs/screenshots/admin-products.png" alt="Admin Products" width="400"></td>
-</tr>
-<tr>
 <td><strong>Orders</strong></td>
-<td><strong>Messages</strong></td>
 </tr>
 <tr>
-<td><img src="docs/screenshots/admin-orders.png" alt="Admin Orders" width="400"></td>
-<td><img src="docs/screenshots/admin-messages.png" alt="Admin Messages" width="400"></td>
+<td><img src="docs/demo/15-admin-products.png" alt="Admin Products" width="400"></td>
+<td><img src="docs/demo/17-admin-orders.png" alt="Admin Orders" width="400"></td>
+</tr>
+<tr>
+<td><strong>Messages</strong></td>
+<td><strong>Families</strong></td>
+</tr>
+<tr>
+<td><img src="docs/demo/18-admin-messages.png" alt="Admin Messages" width="400"></td>
+<td><img src="docs/demo/19-admin-families.png" alt="Admin Families" width="400"></td>
 </tr>
 </table>
 
